@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-orea-dark text-orea-cream py-section px-4 sm:px-6 lg:px-8 isolate transform-gpu">
+    <footer className="bg-orea-dark text-orea-cream py-section px-4 sm:px-6 lg:px-8 isolate transform-gpu mt-[120px]">
       <div className="max-w-wide mx-auto relative">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 lg:gap-x-12 items-start">
 
@@ -61,20 +61,20 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          <div className="flex flex-col gap-10 md:col-span-2 lg:col-span-1 lg:items-end lg:text-right">
-            <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-10 md:col-span-2 lg:col-span-1">
+            <div className="flex flex-col gap-5">
               <h4 className="font-serif text-caption tracking-[0.4em] uppercase text-orea-champagne font-semibold leading-none">JOIN OUR COMMUNITY</h4>
-              <p className="text-body-sm tracking-[0.08em] text-orea-cream font-bold leading-relaxed uppercase">Receive $25 off your first order.</p>
+              <p className="text-caption tracking-[0.1em] text-orea-cream font-medium leading-relaxed uppercase">Receive $25 off your first order.</p>
               <p className="text-caption tracking-[0.1em] text-orea-oatmeal/70 font-light leading-relaxed uppercase">Early access to new pieces, private releases, exclusive offers & more.</p>
             </div>
 
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-6">
               {newsletterState === 'success' ? (
                 <p className="text-caption tracking-[0.2em] uppercase text-orea-gold font-medium py-3 border-b border-orea-champagne/20">
                   Welcome to the community — check your inbox.
                 </p>
               ) : (
-                <form onSubmit={handleNewsletter} noValidate className="w-full">
+                <form onSubmit={handleNewsletter} noValidate>
                   <div className="flex border-b border-orea-champagne/20 pb-3 group focus-within:border-orea-gold transition-colors duration-700">
                     <label htmlFor="footer-email" className="sr-only">Email address for newsletter</label>
                     <input
@@ -99,7 +99,7 @@ const Footer: React.FC = () => {
                 </form>
               )}
 
-              <div className="flex justify-end gap-3 pt-6">
+              <div className="flex justify-start lg:justify-end gap-1 pt-1">
                 <span className="p-3 -m-1 text-orea-oatmeal/40 cursor-not-allowed" aria-label="Instagram (coming soon)" title="Coming soon">
                   <Instagram size={16} strokeWidth={1.2} />
                 </span>
@@ -111,8 +111,12 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-32 pt-8 border-t border-orea-champagne/10 flex justify-end items-center text-micro tracking-[0.4em] uppercase">
-          <Link to="/terms" className="text-orea-oatmeal/60 hover:text-orea-cream transition-colors uppercase">Terms & Conditions</Link>
+        <div className="mt-32 pt-10 border-t border-orea-champagne/10 flex flex-col md:flex-row justify-between items-center text-micro tracking-[0.4em] uppercase gap-6">
+          <p className="text-orea-oatmeal/60">© ORÉA {new Date().getFullYear()}</p>
+          <a href="mailto:hello@orea.co.nz" className="text-orea-oatmeal/60 hover:text-orea-cream transition-colors">hello@orea.co.nz</a>
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-orea-oatmeal/80">
+            <Link to="/terms" className="hover:text-orea-cream transition-colors uppercase">Terms & Conditions</Link>
+          </div>
         </div>
       </div>
     </footer>

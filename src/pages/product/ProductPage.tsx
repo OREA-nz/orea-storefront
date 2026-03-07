@@ -88,7 +88,10 @@ const ProductPage: React.FC = () => {
   // Live data state — populated by direct Shopify fetch
   const [liveTitle, setLiveTitle] = useState<string | null>(null);
   const [description, setDescription] = useState('');
-  const descriptionPlain = description.replace(/<[^>]+>/g, '');
+  const descriptionPlain = useMemo(
+    () => description.replace(/<[^>]+>/g, '').trim(),
+    [description]
+  );
   const [fetchedImages, setFetchedImages] = useState<string[]>([]);
 
   // Fetch live product data when handle changes
