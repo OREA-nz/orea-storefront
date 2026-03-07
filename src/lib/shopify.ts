@@ -15,7 +15,7 @@ export const SHOPIFY_CONFIG = {
     return Boolean(this.domain && this.token);
   },
   get endpoint() {
-    return `https://${this.domain}/api/2026-01/graphql.json`;
+    return `https://${this.domain}/api/2025-07/graphql.json`;
   },
 };
 
