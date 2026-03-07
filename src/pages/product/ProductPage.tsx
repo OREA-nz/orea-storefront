@@ -88,6 +88,7 @@ const ProductPage: React.FC = () => {
   // Live data state — populated by direct Shopify fetch
   const [liveTitle, setLiveTitle] = useState<string | null>(null);
   const [description, setDescription] = useState('');
+  const descriptionPlain = description.replace(/<[^>]+>/g, '');
   const [fetchedImages, setFetchedImages] = useState<string[]>([]);
 
   // Fetch live product data when handle changes
@@ -106,7 +107,7 @@ const ProductPage: React.FC = () => {
     shopifyFetch<{
       productByHandle: {
         title: string;
-        description: string;
+        descriptionHtml: string;
         images: { edges: { node: { url: string } }[] };
       } | null;
     }>(GET_PRODUCT_BY_HANDLE, { handle: shopifyHandle })
@@ -114,13 +115,13 @@ const ProductPage: React.FC = () => {
         const p = data.productByHandle;
         if (!p) return;
         setLiveTitle(p.title);
-        setDescription(p.description);
+        setDescription(p.descriptionHtml);
         setFetchedImages(p.images.edges.map((e) => e.node.url));
       })
       .catch((err) => {
         console.error('[ProductPage] Shopify fetch failed:', err);
       });
-  }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [id, shopifyData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Fallback image source: used when the direct fetch fails or Shopify is not configured
   const { images: hookImages } = useShopifyProductImages(id || '');
@@ -208,9 +209,9 @@ const ProductPage: React.FC = () => {
   return (
     <>
     <title>{product.name} | ORÉA Fine Jewellery</title>
-    <meta name="description" content={description || `Discover ${product.name} at ORÉA Fine Jewellery — certified lab-grown diamonds in solid gold and platinum.`} />
+    <meta name="description" content={descriptionPlain || `Discover ${product.name} at ORÉA Fine Jewellery — certified lab-grown diamonds in solid gold and platinum.`} />
     <meta property="og:title" content={`${product.name} | ORÉA Fine Jewellery`} />
-    <meta property="og:description" content={description || `Discover ${product.name} at ORÉA Fine Jewellery.`} />
+    <meta property="og:description" content={descriptionPlain || `Discover ${product.name} at ORÉA Fine Jewellery.`} />
     <meta property="og:image" content={product.images?.[0] || ''} />
     <div className="min-h-screen flex flex-col bg-orea-cream pb-[160px]">
       <main className="flex-grow">

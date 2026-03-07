@@ -144,11 +144,14 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
           )}
         </div>
         {description && (
-          <p className="text-body-sm text-orea-taupe font-light leading-relaxed">{description}</p>
+          <div
+            className="text-body-sm text-orea-taupe font-light leading-relaxed"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
         )}
       </div>
 
-      {product.options.metal.length > 1 || product.options.metal[0] !== 'Default Title' ? (
+      {product.options.metal.length > 1 && product.options.metal[0] !== 'Default Title' ? (
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-2">
             <label className={labelStyle}>Metal:</label>

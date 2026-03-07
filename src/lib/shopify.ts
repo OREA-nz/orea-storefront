@@ -15,7 +15,7 @@ export const SHOPIFY_CONFIG = {
     return Boolean(this.domain && this.token);
   },
   get endpoint() {
-    return `https://${this.domain}/api/2026-01/graphql.json`;
+    return `https://${this.domain}/api/2025-10/graphql.json`;
   },
 };
 
@@ -242,7 +242,7 @@ export const GET_PRODUCT_BY_HANDLE = `
     productByHandle(handle: $handle) {
       handle
       title
-      description
+      descriptionHtml
       priceRange {
         minVariantPrice { amount currencyCode }
       }
@@ -326,7 +326,7 @@ export const GET_PRODUCT_IMAGES = `
 
 export const GET_ALL_PRODUCT_IMAGES = `
   query getAllProductImages {
-    products(first: 50) {
+    products(first: 100) {
       edges {
         node {
           handle
