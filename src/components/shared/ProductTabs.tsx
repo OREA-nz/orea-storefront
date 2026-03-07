@@ -43,7 +43,7 @@ const ProductTabs: React.FC<ProductTabsProps> = ({
         return (
           <div className="flex flex-col gap-6 animate-in fade-in duration-700">
             <p className="text-body leading-relaxed font-serif" style={{ color: '#4A3F35' }}>
-              {description}
+            <div dangerouslySetInnerHTML={{ __html: description }} />
             </p>
           </div>
         );
