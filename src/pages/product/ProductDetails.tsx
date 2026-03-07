@@ -145,7 +145,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
         </div>
         {description && (
           <div
-            className="text-body-sm text-orea-taupe font-light leading-relaxed"
+            className="text-body-sm text-orea-taupe font-light leading-relaxed prose prose-sm"
             dangerouslySetInnerHTML={{ __html: description }}
           />
         )}
