@@ -112,6 +112,22 @@ const ProductPage: React.FC = () => {
       setDescription(p.descriptionHtml);
       setFetchedImages(p.images.edges.map((e) => e.node.url));
     })
+    .then((data) => {
+      console.log('🔍 Shopify API Response:', data);
+      const p = data.productByHandle;
+      if (!p) {
+        console.error('❌ Product not found for handle:', shopifyHandle);
+        return;
+      }
+      console.log('✅ Product found:', p.title);
+      console.log('📝 Description HTML:', p.descriptionHtml);
+      console.log('🖼️ Images:', p.images.edges.length);
+      
+      setLiveTitle(p.title);
+      setDescription(p.descriptionHtml);
+      setFetchedImages(p.images.edges.map((e) => e.node.url));
+    })
+    
     const shopifyHandle = id === 'pave-half-eternity-band' ? 'pav-half-eternity-band' : id;
 
     shopifyFetch<{
