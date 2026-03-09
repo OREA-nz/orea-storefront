@@ -130,7 +130,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const redirectToCheckout = useCallback(() => {
     const url = shopify.getCheckoutUrl();
     if (url) {
-      window.location.href = url;
+      // Rewrite Shopify checkout URL to use the custom checkout subdomain
+      const checkoutUrl = url.replace('www.orea.co.nz', 'checkout.orea.co.nz');
+      window.location.href = checkoutUrl;
     }
     // If no Shopify URL, the checkout page shows a placeholder
   }, [shopify]);
