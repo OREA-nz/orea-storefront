@@ -134,7 +134,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const checkoutUrl = url
       .replace('orea-8820.myshopify.com', 'www.orea.co.nz')
       .replace('https://orea.co.nz/', 'https://www.orea.co.nz/');
-  
       window.location.href = checkoutUrl;
     }
     // If no Shopify URL, the checkout page shows a placeholder
