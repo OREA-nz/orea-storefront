@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Product } from './types';
-import { sendEmail } from '../../lib/email';
+import { sendHintEmail } from '../../lib/email';
 
 interface SendAHintModalProps {
   isOpen: boolean;
@@ -29,15 +29,13 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
     setStatus('sending');
     setErrorMsg('');
 
-    const result = await sendEmail({
-      subject: 'ORÉA — ' + formData.senderName + ' shared a hint with ' + formData.receiverName,
-      from_name: formData.senderName,
-      from_email: formData.senderEmail,
-      recipient_name: formData.receiverName,
-      recipient_email: formData.receiverEmail,
-      product_name: product.name,
-      personal_message: formData.message || '(none)',
-      message: 'Hint from ' + formData.senderName + ' (' + formData.senderEmail + ') for ' + formData.receiverName + ' (' + formData.receiverEmail + '). Product: ' + product.name + '. Message: ' + (formData.message || '(none)'),
+    const result = await sendHintEmail({
+      senderName: formData.senderName,
+      senderEmail: formData.senderEmail,
+      receiverName: formData.receiverName,
+      receiverEmail: formData.receiverEmail,
+      productName: product.name,
+      message: formData.message || undefined,
     });
 
     if (result.ok) {

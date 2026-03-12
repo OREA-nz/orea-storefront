@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Product } from './types';
-import { sendEmail } from '../../lib/email';
+import { sendReminderEmail  } from '../../lib/email';
 
 interface GiftReminderModalProps {
   isOpen: boolean;
@@ -40,15 +40,13 @@ const GiftReminderModal: React.FC<GiftReminderModalProps> = ({ isOpen, onClose, 
     setStatus('saving');
     setErrorMsg('');
 
-    const result = await sendEmail({
-      subject: 'ORÉA — Gift Reminder Request from ' + formData.name,
-      from_name: formData.name,
-      from_email: formData.email,
-      product_name: product.name,
+    const result = await sendReminderEmail({
+      name: formData.name,
+      email: formData.email,
+      productName: product.name,
       occasion: formData.occasion,
-      occasion_date: formData.date,
-      lead_time_days: formData.leadTime,
-      message: 'Gift reminder: ' + formData.name + ' | ' + formData.email + ' | ' + product.name + ' | ' + formData.occasion + ' on ' + formData.date + ' | Remind ' + formData.leadTime + ' days before.',
+      occasionDate: formData.date,
+      leadTime: formData.leadTime,
     });
 
     if (result.ok) {
