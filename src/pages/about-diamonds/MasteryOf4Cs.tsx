@@ -319,16 +319,25 @@ const CaratChapter = () => (
       <div className="w-full max-w-content bg-orea-cream border border-orea-linen p-4 sm:p-8 md:p-12 lg:p-16 shadow-sm relative overflow-hidden">
         <div className="flex flex-row items-end justify-between gap-2 sm:gap-8 relative z-10">
           {[
-            { carat: '1.0CT', baseSize: 52 },
-            { carat: '1.5CT', baseSize: 62 },
-            { carat: '2.0CT', baseSize: 72 },
-            { carat: '2.5CT', baseSize: 82 },
-            { carat: '3.0CT', baseSize: 92 }
+            { carat: '1.0CT', baseSize: 52, mobileSize: 32 },
+            { carat: '1.5CT', baseSize: 62, mobileSize: 42 },
+            { carat: '2.0CT', baseSize: 72, mobileSize: 52 },
+            { carat: '2.5CT', baseSize: 82, mobileSize: 62 },
+            { carat: '3.0CT', baseSize: 92, mobileSize: 72 }
           ].map((c, i) => (
             <div key={i} className="flex flex-col items-center group flex-1 min-w-0">
-              <div className="flex flex-col items-center mb-4 sm:mb-10 h-16 sm:h-32 justify-end">
+              <div className="flex flex-col items-center mb-4 sm:mb-10 h-20 sm:h-32 justify-end">
                 <div 
-                  className="relative transition-all duration-1000 group-hover:scale-110"
+                  className="relative transition-all duration-1000 group-hover:scale-110 sm:hidden"
+                  style={{ width: `${c.mobileSize}px`, height: `${c.mobileSize}px` }}
+                >
+                  <svg viewBox="0 0 100 100" className="w-full h-full fill-none stroke-[0.8]" stroke="var(--orea-dark)">
+                    <circle cx="50" cy="50" r="48" />
+                    <path d="M50 28 L65.5 34.5 L72 50 L65.5 65.5 L50 72 L34.5 65.5 L28 50 L34.5 34.5 Z" strokeWidth="0.4" className="opacity-40" />
+                  </svg>
+                </div>
+                <div 
+                  className="relative transition-all duration-1000 group-hover:scale-110 hidden sm:block"
                   style={{ width: `min(${c.baseSize}px, 100%)`, height: `min(${c.baseSize}px, 100%)`, maxWidth: '100%' }}
                 >
                   <svg viewBox="0 0 100 100" className="w-full h-full fill-none stroke-[0.8]" stroke="var(--orea-dark)">

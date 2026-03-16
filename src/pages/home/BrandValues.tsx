@@ -4,7 +4,7 @@ import { Sparkle, ShieldCheck, Gift } from 'lucide-react';
 
 const BrandValues: React.FC = () => {
   return (
-    <section className="py-section-sm md:py-section bg-[#FFFFFF]">
+    <section className="py-section-sm md:py-section bg-[#F9F6F1]">
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 items-stretch">
           

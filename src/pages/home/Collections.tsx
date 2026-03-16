@@ -28,7 +28,7 @@ const Collections: React.FC = () => {
   ];
 
   return (
-    <section id="collections" className="pt-section md:pt-section-xl pb-section-sm md:pb-section bg-orea-cream overflow-hidden">
+    <section id="collections" className="pt-section md:pt-section-xl pb-section-sm md:pb-section bg-[#FFFFFF] overflow-hidden">
       <div className="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-section md:gap-section-xl">
         {collectionData.map((item, index) => (
           <div 
