@@ -15,7 +15,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (type === 'hint') {
       emailPayload = {
-        from: 'ORÉA <hello@hint.orea.co.nz>',
+        from: 'ORÉA <noreply@hint.orea.co.nz>',
         to: [data.receiverEmail],
         reply_to: data.senderEmail,
         subject: `A little hint from ${data.senderName}`,
@@ -44,7 +44,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       };
     } else if (type === 'reminder') {
       emailPayload = {
-        from: 'ORÉA <hello@hint.orea.co.nz>',
+        from: 'ORÉA <noreply@hint.orea.co.nz>',
         to: [data.email],
         subject: `Your ORÉA reminder — ${data.occasion} in ${data.leadTime} days`,
         html: `
@@ -69,8 +69,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       };
     } else if (type === 'internal') {
       emailPayload = {
-        from: 'ORÉA Website <hello@hint.orea.co.nz>',
-        to: ['hello@hint.orea.co.nz'],
+        from: 'ORÉA Website <noreply@hint.orea.co.nz>',
+        to: ['hello@orea.co.nz'],
         subject: data.subject,
         html: `
           <div style="font-family: monospace; padding: 24px; background: #f5f5f5;">
