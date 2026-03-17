@@ -96,9 +96,9 @@ const ValueProps: React.FC = () => {
         }
         content={
           <div className="flex flex-col gap-4 flex-1">
-            <p>At ORÉA, our pieces are made to last a lifetime - not to be discarded.</p>
-            <p>We use only solid 14k or 18k gold and platinum, never plated, filled, or vermeil. Precious metals are inherently durable, repairable, and timeless - the ultimate expression of lasting value.</p>
-            <p className="text-orea-taupe font-light mt-auto text-center">{'18K gold or platinum \u2014 priced the same.'}<br />{'Choose the metal you love \u2014 without compromise.'}</p>
+            <p>At ORÉA, our pieces are made to be worn for a lifetime and passed on beyond it.</p>
+            <p>We use only solid 14k or 18k gold and platinum, never plated, filled, or vermeil. Precious metals are inherently durable, repairable, and timeless — the ultimate expression of lasting value.</p>
+            <p className="text-orea-taupe font-light mt-auto text-center">Both 18k gold and platinum are priced the same.<br />Choose the metal you love, without compromise.</p>
           </div>
         }
       />
@@ -114,15 +114,14 @@ const ValueProps: React.FC = () => {
         }
         content={
           <div className="flex flex-col gap-4 flex-1">
-            <p>ORÉA works exclusively with certified lab-grown diamonds, selected for exceptional brilliance, integrity, and traceable quality.</p>
-            <p>All centre stones in our engagement rings, as well as any diamond of 1 carat and above, meet the following minimum standards:</p>
+            <p>ORÉA works exclusively with certified lab-grown diamonds, selected for exceptional brilliance, cut, and origin.</p>
+            <p>All our diamonds are certified, and any diamond over 1 carat is independently graded by the IGI and must meet the following minimum standards:</p>
             <ul className="flex flex-col gap-2 border-l border-orea-sand pl-6 text-body-sm">
-              <li><strong>Cut:</strong> Excellent / Ideal</li>
+              <li><strong>Cut:</strong> Excellent or Ideal</li>
               <li><strong>Clarity:</strong> VS and above</li>
-              <li><strong>Colour:</strong> D-F</li>
+              <li><strong>Colour:</strong> D to F</li>
             </ul>
-            <p className="text-orea-champagne text-body-sm">All diamonds over 1 carat are independently graded by the IGI, the global authority for lab-grown diamond certification.</p>
-            <p className="text-orea-taupe font-light mt-auto text-center">{'Various diamond shapes \u2014 carat-based pricing only.'}<br />{'Pick the shape that speaks to your style.'}</p>
+            <p className="text-orea-taupe font-light mt-auto text-center">All diamond shapes are priced by carat alone.<br />Choose the shape that speaks to you.</p>
           </div>
         }
       />
@@ -136,8 +135,8 @@ const ValueProps: React.FC = () => {
         }
         content={
           <div className="flex flex-col gap-4">
-            <p>Free fully insured shipping on all New Zealand orders.</p>
-            <p>Orders are dispatched securely with signature required on delivery. Alternatively, you may collect your piece in person from our Christchurch studio.</p>
+            <p>Complimentary fully insured shipping on all New Zealand orders.</p>
+            <p>Every piece is dispatched securely with signature required on delivery. You are also welcome to collect in person at a location of your choice in Christchurch.</p>
             <p>For full details, view our Shipping & Delivery information <Link to="/shipping" className="underline underline-offset-4 hover:text-orea-dark transition-colors font-medium">here</Link>.</p>
           </div>
         }
