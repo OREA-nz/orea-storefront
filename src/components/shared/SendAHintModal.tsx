@@ -9,9 +9,21 @@ interface SendAHintModalProps {
   isOpen: boolean;
   onClose: () => void;
   product: Product;
+  selectedMetal?: string;
+  selectedCarat?: string;
+  selectedSize?: string;
+  variantId?: number;
 }
 
-const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, product }) => {
+const SendAHintModal: React.FC<SendAHintModalProps> = ({
+  isOpen,
+  onClose,
+  product,
+  selectedMetal,
+  selectedCarat,
+  selectedSize,
+  variantId,
+}) => {
   const [formData, setFormData] = useState({
     senderName: '',
     senderEmail: '',
@@ -40,6 +52,13 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
 
   if (!isOpen) return null;
 
+  // Build variant label for the preview panel e.g. "18k White Gold · 1.5 CT · Size M"
+  const variantParts: string[] = [];
+  if (selectedMetal) variantParts.push(selectedMetal);
+  if (selectedCarat) variantParts.push(selectedCarat);
+  if (selectedSize && selectedSize !== 'Standard') variantParts.push(`Size ${selectedSize}`);
+  const variantLabel = variantParts.join(' · ');
+
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
@@ -51,8 +70,12 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
       receiverName: formData.receiverName,
       receiverEmail: formData.receiverEmail,
       productName: product.name,
-      productUrl: product.url,
+      productUrl: `https://orea.co.nz/products/${product.id}`,
       productImage: product.images[0] || undefined,
+      selectedMetal,
+      selectedCarat,
+      selectedSize,
+      variantId,
       message: formData.message || undefined,
     });
 
@@ -66,11 +89,6 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
 
   const inputClass = "w-full py-4 bg-transparent border-b border-orea-sand/50 text-body-sm focus:outline-none focus:border-orea-champagne transition-all duration-500 placeholder:text-orea-champagne/60 font-light tracking-widest text-orea-dark";
 
-  /*
-    Rendered via createPortal directly onto document.body so it sits outside
-    every stacking context (including Footer's isolate + transform-gpu).
-    z-[9999] guarantees it renders above all page content regardless of scroll position.
-  */
   return createPortal(
     <div
       className="fixed inset-0 z-[9999] flex items-start justify-center pt-[80px] md:pt-[100px] p-0 sm:p-4 bg-orea-dark/60 backdrop-blur-sm animate-in fade-in duration-700"
@@ -209,7 +227,12 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
                   </div>
 
                   <div className="flex flex-col gap-6 pt-2">
-                    <h4 className="font-serif text-micro font-bold uppercase tracking-widest text-orea-dark mb-1">{product.name}</h4>
+                    <div>
+                      <h4 className="font-serif text-micro font-bold uppercase tracking-widest text-orea-dark mb-1">{product.name}</h4>
+                      {variantLabel && (
+                        <p className="text-micro tracking-widest text-orea-champagne">{variantLabel}</p>
+                      )}
+                    </div>
 
                     {formData.message && (
                       <div className="pt-4 border-t border-orea-sand/30">

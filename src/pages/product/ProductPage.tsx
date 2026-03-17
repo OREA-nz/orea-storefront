@@ -1,6 +1,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { getVariantId } from '../../data/shopifyProducts';
 
 import ProductGallery from '../../components/shared/ProductGallery';
 import ProductDetails from './ProductDetails';
@@ -13,6 +14,8 @@ import { PRODUCTS } from '../collection/constants';
 import { SHOPIFY_PRODUCTS } from '../../data/shopifyProducts';
 import { shopifyFetch, GET_PRODUCT_BY_HANDLE, SHOPIFY_CONFIG } from '../../lib/shopify';
 import { useShopifyProductImages } from '../../hooks/useShopifyImages';
+import SendAHintModal from './SendAHintModal';
+
 
 // Normalize carat string: '1.0 CT' → '1.0CT'
 function normalizeCarat(s: string): string {
@@ -24,6 +27,7 @@ const RING_SIZES = ['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 
 
 const ProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const [isHintOpen, setIsHintOpen] = useState(false);
 
   const isRing = useMemo(() => {
     const base = PRODUCTS.find(p => p.id === id);
@@ -137,6 +141,17 @@ const ProductPage: React.FC = () => {
   const [selectedShape, setSelectedShape] = useState('Emerald');
   const [selectedCarat, setSelectedCarat] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
+  
+  // Resolve the numeric Shopify variant ID from current metal + carat selections
+  const selectedVariantId = useMemo(() => {
+    if (!id) return undefined;
+    // selectedCarat is stored normalised ('1.0CT') but getVariantId expects '1.0 CT'
+    const caratForLookup = selectedCarat
+      ? selectedCarat.replace('CT', ' CT').trim()
+      : undefined;
+    const rawId = getVariantId(id, selectedMetal, caratForLookup);
+    return rawId ? Number(rawId) : undefined;
+  }, [id, selectedMetal, selectedCarat]);
 
   // Reset selections whenever the resolved product changes
   useEffect(() => {
@@ -196,8 +211,14 @@ const ProductPage: React.FC = () => {
         </section>
       </main>
     </div>
-    </>
-  );
-};
 
-export default ProductPage;
+    <SendAHintModal
+      isOpen={isHintOpen}
+      onClose={() => setIsHintOpen(false)}
+      product={product}
+      selectedMetal={selectedMetal}
+      selectedCarat={selectedCarat || undefined}
+      selectedSize={selectedSize || undefined}
+      variantId={selectedVariantId}
+    />
+    </>

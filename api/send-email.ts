@@ -14,6 +14,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let emailPayload: any;
 
     if (type === 'hint') {
+      // Build variant detail line e.g. "18k White Gold · 1.5 CT · Size M"
+      const variantParts: string[] = [];
+      if (data.selectedMetal) variantParts.push(data.selectedMetal);
+      if (data.selectedCarat) variantParts.push(data.selectedCarat);
+      if (data.selectedSize && data.selectedSize !== 'Standard') variantParts.push(`Size ${data.selectedSize}`);
+      const variantLabel = variantParts.join(' · ');
+
+      // Build direct variant URL — links straight to that variant on the product page
+      const productLink = data.variantId
+        ? `${data.productUrl}?variant=${data.variantId}`
+        : data.productUrl || 'https://orea.co.nz';
+
       emailPayload = {
         from: 'ORÉA <noreply@hint.orea.co.nz>',
         to: [data.receiverEmail],
@@ -24,31 +36,57 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             <a href="https://orea.co.nz" style="text-decoration: none;">
               <p style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #B8A99A; margin-bottom: 32px;">ORÉA Fine Jewellery</p>
             </a>
+
             <h1 style="font-size: 28px; font-weight: 300; font-style: italic; margin-bottom: 24px;">Dear ${data.receiverName},</h1>
             <p style="font-size: 16px; line-height: 1.8; color: #6B5E55; margin-bottom: 24px;">
               Someone who cares about you has shared something they would love for you to see.
             </p>
+
             <div style="border: 1px solid #E8DDD6; padding: 24px; margin: 32px 0; text-align: center;">
               ${data.productImage ? `
-              <a href="${data.productUrl || 'https://orea.co.nz'}" style="display: block; margin-bottom: 16px;">
-                <img src="${data.productImage}" alt="A piece from ORÉA" style="max-width: 100%; max-height: 320px; object-fit: contain; display: block; margin: 0 auto;" />
+              <a href="${productLink}" style="display: block; margin-bottom: 20px;">
+                <img src="${data.productImage}" alt="${data.productName || 'A piece from ORÉA'}" style="max-width: 100%; max-height: 320px; object-fit: contain; display: block; margin: 0 auto;" />
               </a>
               ` : ''}
-              ${data.productUrl ? `<a href="${data.productUrl}" style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #B8A99A;">View the Piece →</a>` : ''}
+
+              <p style="font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C2520; margin: 0 0 8px 0;">
+                ${data.productName || ''}
+              </p>
+
+              ${variantLabel ? `
+              <p style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #B8A99A; margin: 0 0 16px 0;">
+                ${variantLabel}
+              </p>
+              ` : ''}
+
+              <a href="${productLink}" style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #B8A99A; text-decoration: none;">View the Piece →</a>
             </div>
+
             ${data.message ? `
             <div style="border-left: 1px solid #E8DDD6; padding-left: 20px; margin: 32px 0;">
               <p style="font-style: italic; color: #6B5E55; line-height: 1.8;">"${data.message}"</p>
               <p style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #B8A99A; margin-top: 12px;">— ${data.senderName}</p>
             </div>
             ` : ''}
+
             <p style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #B8A99A; margin-top: 48px; border-top: 1px solid #E8DDD6; padding-top: 24px;">
               With Love, <a href="https://orea.co.nz" style="color: #B8A99A; text-decoration: none;">ORÉA</a>
             </p>
           </div>
         `,
       };
+
     } else if (type === 'reminder') {
+      const variantParts: string[] = [];
+      if (data.selectedMetal) variantParts.push(data.selectedMetal);
+      if (data.selectedCarat) variantParts.push(data.selectedCarat);
+      if (data.selectedSize && data.selectedSize !== 'Standard') variantParts.push(`Size ${data.selectedSize}`);
+      const variantLabel = variantParts.join(' · ');
+
+      const productLink = data.variantId
+        ? `${data.productUrl}?variant=${data.variantId}`
+        : data.productUrl || 'https://orea.co.nz';
+
       emailPayload = {
         from: 'ORÉA <noreply@hint.orea.co.nz>',
         to: [data.email],
@@ -58,27 +96,43 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             <a href="https://orea.co.nz" style="text-decoration: none;">
               <p style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #B8A99A; margin-bottom: 32px;">ORÉA Fine Jewellery</p>
             </a>
+
             <h1 style="font-size: 28px; font-weight: 300; font-style: italic; margin-bottom: 24px;">Dear ${data.name},</h1>
             <p style="font-size: 16px; line-height: 1.8; color: #6B5E55; margin-bottom: 24px;">
               A gentle reminder that your ${data.occasion.toLowerCase()} is coming up on <strong>${data.occasionDate}</strong>.
             </p>
+
             <div style="border: 1px solid #E8DDD6; padding: 24px; margin: 32px 0; text-align: center;">
               ${data.productImage ? `
-              <a href="${data.productUrl || 'https://orea.co.nz'}" style="display: block; margin-bottom: 16px;">
-                <img src="${data.productImage}" alt="A piece from ORÉA" style="max-width: 100%; max-height: 320px; object-fit: contain; display: block; margin: 0 auto;" />
+              <a href="${productLink}" style="display: block; margin-bottom: 20px;">
+                <img src="${data.productImage}" alt="${data.productName || 'A piece from ORÉA'}" style="max-width: 100%; max-height: 320px; object-fit: contain; display: block; margin: 0 auto;" />
               </a>
               ` : ''}
-              ${data.productUrl ? `<a href="${data.productUrl}" style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #B8A99A;">View the Piece →</a>` : ''}
+
+              <p style="font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C2520; margin: 0 0 8px 0;">
+                ${data.productName || ''}
+              </p>
+
+              ${variantLabel ? `
+              <p style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #B8A99A; margin: 0 0 16px 0;">
+                ${variantLabel}
+              </p>
+              ` : ''}
+
+              <a href="${productLink}" style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #B8A99A; text-decoration: none;">View the Piece →</a>
             </div>
+
             <p style="font-size: 15px; line-height: 1.8; color: #6B5E55;">
               Our concierge team is available to assist with any questions.
             </p>
+
             <p style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #B8A99A; margin-top: 48px; border-top: 1px solid #E8DDD6; padding-top: 24px;">
               With Love, <a href="https://orea.co.nz" style="color: #B8A99A; text-decoration: none;">ORÉA</a>
             </p>
           </div>
         `,
       };
+
     } else if (type === 'internal') {
       emailPayload = {
         from: 'ORÉA Website <noreply@hint.orea.co.nz>',

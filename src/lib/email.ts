@@ -15,7 +15,6 @@ export interface EmailResult {
   message: string;
 }
 
-// Send a hint email to a recipient
 export async function sendHintEmail(payload: {
   senderName: string;
   senderEmail: string;
@@ -24,6 +23,10 @@ export async function sendHintEmail(payload: {
   productName: string;
   productUrl?: string;
   productImage?: string;
+  selectedMetal?: string;
+  selectedCarat?: string;
+  selectedSize?: string;
+  variantId?: number;
   message?: string;
 }): Promise<EmailResult> {
   try {
@@ -41,7 +44,6 @@ export async function sendHintEmail(payload: {
   }
 }
 
-// Schedule a gift reminder — sends internal notification to hello@orea.co.nz
 export async function sendReminderEmail(payload: {
   name: string;
   email: string;
@@ -52,7 +54,6 @@ export async function sendReminderEmail(payload: {
   leadTime: string;
 }): Promise<EmailResult> {
   try {
-    // Send internal notification to ORÉA team
     const res = await fetch('/api/send-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -71,7 +72,6 @@ export async function sendReminderEmail(payload: {
   }
 }
 
-// Legacy compatibility — used by any remaining sendEmail() calls
 export async function sendEmail(payload: Record<string, string>): Promise<EmailResult> {
   try {
     const res = await fetch('/api/send-email', {
