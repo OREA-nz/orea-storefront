@@ -90,7 +90,7 @@ const Navbar: React.FC = () => {
   return (
     <nav 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-1000 mb-[120px] ${
-        isScrolled || activeDropdown ? 'bg-orea-cream/[0.98] backdrop-blur-sm border-b border-orea-champagne/10 py-4 md:py-5' : 'bg-transparent py-6 md:py-10'
+        isScrolled || activeDropdown ? 'bg-orea-cream/[0.98] backdrop-blur-sm py-4 md:py-5' : 'bg-transparent py-6 md:py-10'
       }`}
       onMouseLeave={() => setActiveDropdown(null)}
     >
