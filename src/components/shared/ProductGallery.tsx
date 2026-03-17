@@ -45,7 +45,7 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images }) => {
             <button
               type="button"
               onClick={handlePrev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-orea-cream/80 hover:bg-orea-cream text-orea-dark transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-10"
+              className="absolute left-3 top-1/2 -translate-y-1/2 p-2 text-orea-dark transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-10"
               aria-label="Previous image"
             >
               <ChevronLeft size={20} strokeWidth={1.2} />
@@ -53,7 +53,7 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images }) => {
             <button
               type="button"
               onClick={handleNext}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-orea-cream/80 hover:bg-orea-cream text-orea-dark transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-10"
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-orea-dark transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-10"
               aria-label="Next image"
             >
               <ChevronRight size={20} strokeWidth={1.2} />
