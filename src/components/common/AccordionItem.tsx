@@ -32,7 +32,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ question, answer, isOpen,
           isOpen ? 'max-h-[500px] pb-10 opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
-        <div className="text-body leading-relaxed text-orea-taupe font-light max-w-content whitespace-pre-wrap">
+        <div className="text-body leading-relaxed text-orea-taupe font-light whitespace-pre-wrap">
           {answer}
         </div>
       </div>
