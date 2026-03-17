@@ -33,9 +33,9 @@ const ConciergePage: React.FC = () => {
       </div>
 
       {/* Right Column: Content */}
-      <div className="px-6 py-12 lg:px-16 xl:px-24">
+      <div className="px-[25px] py-[25px] md:pt-[50px] md:pb-[50px] md:pl-[125px] md:pr-[25px]">
         <header className="mb-12">
-          <h1 className="font-serif text-h2 font-light tracking-tight mb-4 text-orea-dark">
+          <h1 className="font-serif text-h3 font-light tracking-tight mb-4 text-orea-dark">
             ORÉA Concierge Service
           </h1>
           <p className="text-h4 font-light text-orea-taupe mb-6">
