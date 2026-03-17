@@ -34,7 +34,7 @@ const ProductTabs: React.FC<ProductTabsProps> = ({
         return (
           <div className={tabContentClass}>
             <p>Our pieces are made to order and typically take between 2-8 weeks to produce, depending on the design.</p>
-            <p>We also offer a curated selection available to ship within 7-10 days for time-sensitive {shippingContext}. If you are working toward a tight timeline or require your piece by a specific date, please contact us and we'll do our best to accommodate.</p>
+            <p>If you are working toward a tight timeline or require your piece by a specific date, please contact us and we'll do our best to accommodate.</p>
             <p>For detailed delivery information, please refer to our <Link to="/shipping" className="border-b border-orea-champagne pb-0.5 hover:opacity-70 transition-opacity">Shipping Information page</Link>.</p>
           </div>
         );
@@ -42,7 +42,7 @@ const ProductTabs: React.FC<ProductTabsProps> = ({
         return (
           <div className={tabContentClass}>
             <p>ORÉA jewellery is crafted in solid gold or platinum and set with certified, 100% real lab-grown diamonds.</p>
-            <p>Fine jewellery is covered by a 2-Year Manufacturing Warranty, with optional <Link to="/concierge" className="underline underline-offset-4 hover:opacity-70 transition-opacity">ORÉA Concierge Service</Link> available for extended care.</p>
+            <p>Our pieces are covered by a Manufacturing Warranty, with optional <Link to="/concierge" className="underline underline-offset-4 hover:opacity-70 transition-opacity">ORÉA Concierge Service</Link> available for extended care.</p>
             <p className="opacity-70">Please note: Normal wear and tear, improper care, third-party repairs, scratches, loss or theft, and discolouration caused by harsh chemicals are not covered. Each ORÉA piece is handcrafted to order; slight variations are a natural part of its character.</p>
           </div>
         );
