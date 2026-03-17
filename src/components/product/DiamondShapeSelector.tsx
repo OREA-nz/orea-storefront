@@ -165,23 +165,27 @@ interface DiamondShapeSelectorProps {
   shapes?: string[];
   selectedShape: string;
   onShapeChange: (shape: string) => void;
+  hideLabel?: boolean;
 }
 
 const DiamondShapeSelector: React.FC<DiamondShapeSelectorProps> = ({
   shapes = DIAMOND_SHAPES as unknown as string[],
   selectedShape,
-  onShapeChange
+  onShapeChange,
+  hideLabel = false,
 }) => {
   return (
     <div className="flex flex-col gap-6 w-full">
-      <div className="flex items-center gap-2">
-        <label className="text-micro font-bold uppercase tracking-widest text-orea-dark">
-          {'Shape:'}
-        </label>
-        <span className="text-body-sm font-light text-orea-taupe tracking-wide">
-          {selectedShape}
-        </span>
-      </div>
+      {!hideLabel && (
+        <div className="flex items-center gap-2">
+          <label className="text-micro font-bold uppercase tracking-widest text-orea-dark">
+            {'Shape:'}
+          </label>
+          <span className="text-body-sm font-light text-orea-taupe tracking-wide">
+            {selectedShape}
+          </span>
+        </div>
+      )}
       <div className="w-full flex flex-row items-stretch overflow-x-auto no-scrollbar gap-0.5 pb-1">
         {shapes.map((shape) => {
           const isActive = selectedShape === shape;
