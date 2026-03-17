@@ -20,7 +20,7 @@ const ConciergePage: React.FC = () => {
   };
 
   return (
-    <main className="grid grid-cols-1 lg:grid-cols-2 pb-[160px]">
+    <main className="grid grid-cols-1 lg:grid-cols-2 items-start pb-[160px]">
       {/* Left Column: Single portrait image */}
       <div className="w-full">
         <div className="w-full aspect-[3/4] bg-orea-sand/30 overflow-hidden">
