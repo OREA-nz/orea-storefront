@@ -2,7 +2,7 @@ import React from 'react';
 
 const TermsPage: React.FC = () => {
   return (
-    <div className="min-h-screen selection:bg-orea-linen selection:text-orea-dark pt-20 pb-[160px]">
+    <div className="min-h-screen selection:bg-orea-linen selection:text-orea-dark pt-section pb-[160px]">
       <div className="px-6 md:px-12 max-w-container mx-auto">
         <div className="text-center mb-20">
           <h1 className="font-serif text-h1 font-light leading-tight text-orea-dark">

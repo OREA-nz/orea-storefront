@@ -30,7 +30,7 @@ export const RETURNS_FAQ: FAQItem[] = [
   },
   {
     question: "Condition of Returned Items",
-    answer: "Where a return is approved:\n\n• Items must be unworn, unused, and in original condition\n• Items must be returned with all original packaging\n\nWe reserve the right to refuse a return if the item shows signs of wear, damage, or alteration"
+    answer: "Where a return is approved:\n\n• Items must be unworn, unused, and in original condition\n• Items must be returned with all original packaging\n\nWe reserve the right to refuse a return if the item shows signs of wear, damage, or alteration."
   },
   {
     question: "Refund Processing",

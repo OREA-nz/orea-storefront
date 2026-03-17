@@ -1,4 +1,3 @@
-
 import { FAQItem, NavLink } from '../../types/common';
 
 export const NAV_LINKS: NavLink[] = [
@@ -38,7 +37,11 @@ export const SHIPPING_FAQ: FAQItem[] = [
     answer: "All ORÉA pieces are delivered in luxury, discreet packaging, designed for both protection and gifting."
   },
   {
-    question: "Need your order sooner?",
-    answer: "Have a special date or tight timeframe? Contact us before placing your order and we’ll do our best to accommodate urgent requests, subject to production availability."
+    question: "Do you ship worldwide?",
+    answer: "ORÉA ships internationally to most countries via DHL, so you can track your jewellery door to door.\n\nPlease note that we charge the tax-exclusive value of your jewellery. Any customs or duty charges incurred upon entry into your destination country are the responsibility of the recipient. We recommend researching your local import regulations before placing your order. ORÉA holds no responsibility for any charges applied by DHL or a local tax authority on internationally shipped purchases."
+  },
+  {
+    question: "Can I request an urgent or priority order?",
+    answer: "If you're working toward a specific date, please contact us before placing your order. We'll let you know what's possible based on current production availability and do our best to accommodate your timeline."
   }
 ];

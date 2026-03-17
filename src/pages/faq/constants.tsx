@@ -13,7 +13,7 @@ export const GENERAL_FAQ: FAQItem[] = [
     answer: "Yes. Lab-grown diamonds are real diamonds with the same physical, chemical, and optical properties as mined diamonds."
   },
   {
-    question: "What’s the difference between lab-grown and mined diamonds?",
+    question: "What's the difference between lab-grown and mined diamonds?",
     answer: "The difference lies in how they are created. Mined diamonds form naturally underground over millions of years, while lab-grown diamonds are created in controlled environments that replicate the same conditions.\n\nIn terms of appearance, durability, and structure, they are identical. Lab-grown diamonds are typically more accessible in price than mined diamonds of the same size and quality, without sacrificing beauty or integrity."
   },
   {
@@ -22,7 +22,7 @@ export const GENERAL_FAQ: FAQItem[] = [
   },
   {
     question: "Is the diamond certified?",
-    answer: "We supply certification to all lab-grown diamonds with an individual carat weight of 1.0ct and above. Our certified diamonds come with an IGI certification matching the inscription on the girdle of the stone. If you have questions regarding individual carat weight below 1.0ct, please contact us."
+    answer: "All ORÉA diamonds are certified. Diamonds of 1.0 carat and above are independently graded by the International Gemological Institute (IGI) and meet our minimum standards:\n\nCut: Excellent or Ideal\nClarity: VS and above\nColour: D to F\n\nIf you have particular requirements for diamonds below 1.0 carat, please contact us."
   },
   {
     question: "Do your pieces come with a warranty?",
@@ -33,23 +33,23 @@ export const GENERAL_FAQ: FAQItem[] = [
     answer: "We recommend contacting us for guidance or visiting a local jeweller for professional sizing to ensure accuracy before ordering."
   },
   {
-    question: "Can my ring be resized if it doesn’t fit quite right?",
-    answer: "In many cases, yes. Resizing eligibility depends on the design style and metal type. For selected styles, we offer one complimentary resize for engagement and wedding rings, available within three months of your ring’s completion.\n\nIf you believe a resize may be required, please contact us as soon as possible and we’ll advise on the best next steps."
+    question: "Can my ring be resized if it doesn't fit quite right?",
+    answer: "In many cases, yes. Resizing eligibility depends on the design style and metal type. For selected styles, we offer one complimentary resize for engagement and wedding rings, available within three months of your ring's completion.\n\nIf you believe a resize may be required, please contact us as soon as possible and we'll advise on the best next steps."
   },
   {
-    question: "What's the difference between 9ct and 18ct gold?",
-    answer: "The difference between 14ct and 18ct gold is the percentage of pure gold in the alloy - 14ct has 58% and 18ct has 75%.\n\nThis percentage affects the colour, hardness and durability of the piece. Since pure gold is a soft and malleable material other metals have been added to it to increase the material’s durability - making it great fit for everyday fine jewelry."
+    question: "What's the difference between 14k and 18k gold?",
+    answer: "The difference between 14k and 18k gold is the percentage of pure gold in the alloy - 14k has 58% and 18k has 75%.\n\nThis percentage affects the colour, hardness and durability of the piece. Since pure gold is a soft and malleable material other metals have been added to it to increase the material's durability - making it great fit for everyday fine jewelry."
   },
   {
     question: "Can you help keep my purchase a surprise?",
-    answer: "Absolutely! We understand many of our pieces are purchased for meaningful moments such as proposals or special gifts. If you have specific concerns or requests to help maintain the surprise, feel free to let us know and we’re happy to assist where possible."
+    answer: "Absolutely! We understand many of our pieces are purchased for meaningful moments such as proposals or special gifts. If you have specific concerns or requests to help maintain the surprise, feel free to let us know and we're happy to assist where possible."
   },
   {
     question: "Do you ship worldwide?",
-    answer: "ORÉA offers international shipping to most countries.\n\nMost orders are sent with duties and taxes covered. However, some countries do not allow these charges to be prepaid by the sender. In those cases, local import duties or taxes may be payable upon delivery. We recommend checking your local customs regulations or contacting us if you’re unsure."
+    answer: "ORÉA ships internationally to most countries via DHL, so you can track your jewellery door to door.\n\nAll orders are charged exclusive of taxes. Depending on your destination, customs duties or import taxes may apply upon arrival. Any customs or duty charges incurred upon entry into your destination country are the responsibility of the recipient.\n\nWe recommend researching your local import regulations before placing your order. ORÉA holds no responsibility for any charges applied by DHL or a local tax authority on internationally shipped purchases."
   },
   {
     question: "Still Have Questions?",
-    answer: "If you’re unsure about anything before or after purchasing, we encourage you to get in touch. Fine jewellery is personal, and we believe clarity builds confidence."
+    answer: "If you have a question that isn't covered here, we'd love to hear from you. You can reach us at hello@orea.co.nz or through our Contact page."
   }
 ];
