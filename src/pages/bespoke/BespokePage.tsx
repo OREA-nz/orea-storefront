@@ -14,9 +14,9 @@ const steps: StepData[] = [
   {
     icon: Users,
     title: "CONSULTATION",
-    timeEstimate: "Approx. 30-60 minutes",
+    timeEstimate: "Approx. 15-45 minutes",
     body: (
-      <p>Your journey begins with a one-on-one consultation, either online or in person at our studio. This relaxed session allows us to get to know you and your partner's style, understand your vision, and determine the right path forward.</p>
+      <p>Your journey begins with a one-on-one consultation, either online or in person. This relaxed session allows us to get to know you and your partner's style, understand your vision, and determine the right path forward.</p>
     )
   },
   {
@@ -25,7 +25,7 @@ const steps: StepData[] = [
     timeEstimate: "Approx. 1-4 weeks",
     body: (
       <div className="flex flex-col gap-4">
-        <p>This is where ideas take form. We translate your vision into sketches and photorealistic 3D renders, refining proportions and settings with care.</p>
+        <p>This is where ideas take form. We translate your vision into detailed Computer Aided Design (CAD) designs, refining proportions and settings with care.</p>
         <p>Design is a collaborative stage. We'll share ideas, invite your feedback, and fine-tune every element until the design feels resolved and considered.</p>
       </div>
     )
