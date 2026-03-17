@@ -51,6 +51,8 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
       receiverName: formData.receiverName,
       receiverEmail: formData.receiverEmail,
       productName: product.name,
+      productUrl: product.url,
+      productImage: product.images[0] || undefined,
       message: formData.message || undefined,
     });
 

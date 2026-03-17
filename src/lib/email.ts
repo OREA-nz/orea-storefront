@@ -23,6 +23,7 @@ export async function sendHintEmail(payload: {
   receiverEmail: string;
   productName: string;
   productUrl?: string;
+  productImage?: string;
   message?: string;
 }): Promise<EmailResult> {
   try {
