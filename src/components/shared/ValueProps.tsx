@@ -98,7 +98,7 @@ const ValueProps: React.FC = () => {
           <div className="flex flex-col gap-4 flex-1">
             <p>At ORÉA, our pieces are made to be worn for a lifetime and passed on beyond it.</p>
             <p>We use only solid 14k or 18k gold and platinum, never plated, filled, or vermeil. Precious metals are inherently durable, repairable, and timeless — the ultimate expression of lasting value.</p>
-            <p className="text-orea-taupe font-light mt-auto text-center">Both 18k gold and platinum are priced the same.<br />Choose the metal you love, without compromise.</p>
+            <p className="text-orea-taupe font-light text-left">Both 18k gold and platinum are priced the same.<br />Choose the metal you love, without compromise.</p>
           </div>
         }
       />
@@ -121,7 +121,7 @@ const ValueProps: React.FC = () => {
               <li><strong>Clarity:</strong> VS and above</li>
               <li><strong>Colour:</strong> D to F</li>
             </ul>
-            <p className="text-orea-taupe font-light mt-auto text-center">All diamond shapes are priced by carat alone.<br />Choose the shape that speaks to you.</p>
+            <p className="text-orea-taupe font-light text-left">All diamond shapes are priced by carat alone.<br />Choose the shape that speaks to you.</p>
           </div>
         }
       />
