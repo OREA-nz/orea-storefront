@@ -1,8 +1,8 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Product } from './types';
 import { sendHintEmail } from '../../lib/email';
+import { lockScroll, unlockScroll } from '../../lib/scrollLock';
 
 interface SendAHintModalProps {
   isOpen: boolean;
@@ -21,6 +21,21 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
   const navigate = useNavigate();
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+
+  useEffect(() => {
+    if (!isOpen) return;
+    lockScroll();
+
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKey);
+
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+      unlockScroll();
+    };
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -49,21 +64,34 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
   const inputClass = "w-full py-4 bg-transparent border-b border-orea-sand/50 text-body-sm focus:outline-none focus:border-orea-champagne transition-all duration-500 placeholder:text-orea-champagne/60 font-light tracking-widest text-orea-dark";
 
   return (
+    /*
+      Overlay: fixed, inset-0, padded top to clear navbar.
+      Clicking the backdrop (overlay itself) closes the modal.
+    */
     <div
-      className="fixed inset-0 z-[150] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-orea-dark/60 backdrop-blur-sm animate-in fade-in duration-700"
+      className="fixed inset-0 z-[150] flex items-start justify-center pt-[80px] md:pt-[100px] p-0 sm:p-4 bg-orea-dark/60 backdrop-blur-sm animate-in fade-in duration-700"
       onClick={onClose}
     >
+      {/* Content — stopPropagation prevents backdrop click from firing */}
       <div
-        className="bg-orea-cream w-full max-w-5xl rounded-t-lg sm:rounded-sm shadow-2xl overflow-hidden flex flex-col md:flex-row relative animate-in zoom-in-95 duration-500 max-h-[85dvh] sm:max-h-[90vh]"
+        className="bg-orea-cream w-full max-w-5xl rounded-t-lg sm:rounded-sm shadow-2xl overflow-hidden flex flex-col md:flex-row relative animate-in zoom-in-95 duration-500"
+        style={{ maxHeight: 'calc(100vh - 100px)' }}
         onClick={(e) => e.stopPropagation()}
       >
-
-        <button onClick={onClose} className="absolute top-8 right-8 z-30 text-orea-champagne hover:text-orea-dark transition-all">
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={0.8} d="M6 18L18 6M6 6l12 12" /></svg>
+        {/* X close button */}
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute top-8 right-8 z-30 text-orea-champagne hover:text-orea-dark transition-all"
+          aria-label="Close"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={0.8} d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </button>
 
         {status === 'sent' ? (
-          <div className="w-full flex flex-col items-center justify-center p-12 md:p-24 text-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
+          <div className="w-full flex flex-col items-center justify-center p-12 md:p-24 text-center animate-in fade-in slide-in-from-bottom-4 duration-1000 overflow-y-auto">
             <div className="mb-12 relative">
               <svg className="w-20 h-20 text-orea-sand mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 4V6M12 18V20M6 12H4M20 12H18M17.657 6.343L16.243 7.757M7.757 16.243L6.343 17.657M17.657 17.657L16.243 16.243M7.757 7.757L6.343 6.343" strokeWidth="0.5" strokeLinecap="round"/><circle cx="12" cy="12" r="3" strokeWidth="0.5"/></svg>
               <div className="absolute inset-0 flex items-center justify-center">
@@ -81,12 +109,14 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
                 <div className="h-px w-12 bg-orea-sand" />
                 <div className="flex flex-col md:flex-row gap-8">
                   <button
+                    type="button"
                     onClick={onClose}
                     className="text-micro font-bold uppercase tracking-widest text-orea-dark border-b border-orea-dark pb-2 hover:text-orea-taupe hover:border-orea-taupe transition-all"
                   >
                     Return to the Piece
                   </button>
                   <button
+                    type="button"
                     onClick={() => { onClose(); navigate('/concierge'); }}
                     className="text-micro font-bold uppercase tracking-widest text-orea-taupe hover:text-orea-dark transition-all"
                   >
@@ -98,6 +128,7 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
           </div>
         ) : (
           <>
+            {/* Left form panel */}
             <div className="w-full md:w-5/12 p-6 sm:p-10 md:p-14 bg-orea-cream border-r border-orea-sand/30 flex flex-col overflow-y-auto">
               <div className="mb-12">
                 <h3 className="text-h3 font-light font-serif italic text-orea-dark mb-2">Send a Hint</h3>
@@ -106,35 +137,33 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
 
               <form onSubmit={handleSend} noValidate className="flex-grow flex flex-col justify-between">
                 <div className="flex flex-col gap-6">
-                  <div className="flex flex-col gap-6">
-                    <div className="flex flex-col gap-1">
-                      <p className="text-micro font-bold uppercase tracking-widest text-orea-champagne">From</p>
-                      <input type="text" placeholder="Your Name" className={inputClass} value={formData.senderName} onChange={(e) => setFormData({...formData, senderName: e.target.value})} required autoComplete="name" />
-                      <input type="email" placeholder="Your Email Address" className={inputClass} value={formData.senderEmail} onChange={(e) => setFormData({...formData, senderEmail: e.target.value})} required autoComplete="email" />
-                    </div>
+                  <div className="flex flex-col gap-1">
+                    <p className="text-micro font-bold uppercase tracking-widest text-orea-champagne">From</p>
+                    <input type="text" placeholder="Your Name" className={inputClass} value={formData.senderName} onChange={(e) => setFormData({...formData, senderName: e.target.value})} required autoComplete="name" />
+                    <input type="email" placeholder="Your Email Address" className={inputClass} value={formData.senderEmail} onChange={(e) => setFormData({...formData, senderEmail: e.target.value})} required autoComplete="email" />
+                  </div>
 
-                    <div className="py-2 flex items-center">
-                      <div className="h-px bg-orea-sand/50 flex-grow" />
-                      <div className="mx-4 text-micro font-bold uppercase tracking-widest text-orea-sand">Recipient</div>
-                      <div className="h-px bg-orea-sand/50 flex-grow" />
-                    </div>
+                  <div className="py-2 flex items-center">
+                    <div className="h-px bg-orea-sand/50 flex-grow" />
+                    <div className="mx-4 text-micro font-bold uppercase tracking-widest text-orea-sand">Recipient</div>
+                    <div className="h-px bg-orea-sand/50 flex-grow" />
+                  </div>
 
-                    <div className="flex flex-col gap-1">
-                      <p className="text-micro font-bold uppercase tracking-widest text-orea-champagne">To</p>
-                      <input type="text" placeholder="Their Name" className={inputClass} value={formData.receiverName} onChange={(e) => setFormData({...formData, receiverName: e.target.value})} required />
-                      <input type="email" placeholder="Their Email Address" className={inputClass} value={formData.receiverEmail} onChange={(e) => setFormData({...formData, receiverEmail: e.target.value})} required />
-                    </div>
+                  <div className="flex flex-col gap-1">
+                    <p className="text-micro font-bold uppercase tracking-widest text-orea-champagne">To</p>
+                    <input type="text" placeholder="Their Name" className={inputClass} value={formData.receiverName} onChange={(e) => setFormData({...formData, receiverName: e.target.value})} required />
+                    <input type="email" placeholder="Their Email Address" className={inputClass} value={formData.receiverEmail} onChange={(e) => setFormData({...formData, receiverEmail: e.target.value})} required />
+                  </div>
 
-                    <div className="pt-4">
-                      <textarea
-                        placeholder="Write a personal message (optional)..."
-                        rows={2}
-                        maxLength={1000}
-                        className={`${inputClass} border-orea-sand/30 focus:border-orea-champagne resize-none italic font-serif`}
-                        value={formData.message}
-                        onChange={(e) => setFormData({...formData, message: e.target.value})}
-                      />
-                    </div>
+                  <div className="pt-4">
+                    <textarea
+                      placeholder="Write a personal message (optional)..."
+                      rows={2}
+                      maxLength={1000}
+                      className={`${inputClass} border-orea-sand/30 focus:border-orea-champagne resize-none italic font-serif`}
+                      value={formData.message}
+                      onChange={(e) => setFormData({...formData, message: e.target.value})}
+                    />
                   </div>
                 </div>
 
@@ -162,7 +191,8 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
               </form>
             </div>
 
-            <div className="hidden md:flex w-full md:w-7/12 bg-orea-sand/20 p-10 md:p-20 items-center justify-center relative" aria-hidden="true">
+            {/* Right preview panel */}
+            <div className="hidden md:flex w-full md:w-7/12 bg-orea-sand/20 p-10 md:p-20 items-center justify-center relative overflow-y-auto" aria-hidden="true">
               <div className="absolute top-0 right-0 p-20 opacity-5 pointer-events-none">
                 <svg className="w-64 h-64 text-orea-dark" viewBox="0 0 24 24" fill="none"><path d="M12 4V6M12 18V20M6 12H4M20 12H18M17.657 6.343L16.243 7.757M7.757 16.243L6.343 17.657M17.657 17.657L16.243 16.243M7.757 7.757L6.343 6.343" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1"/></svg>
               </div>
@@ -188,6 +218,8 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
                       <img
                         src={product.images[0] || "/placeholder.svg"}
                         alt="Hint Product"
+                        width={2048}
+                        height={2048}
                         className="w-48 h-60 object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-1000"
                       />
                     </div>

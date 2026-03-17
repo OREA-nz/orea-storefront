@@ -143,12 +143,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
             <span className="text-micro font-bold text-orea-taupe uppercase tracking-widest ml-2">Out of Stock</span>
           )}
         </div>
-        {description && (
-          <div
-            className="text-body-sm text-orea-taupe font-light leading-relaxed prose prose-sm"
-            dangerouslySetInnerHTML={{ __html: description }}
-          />
-        )}
       </div>
 
       {product.options.metal.length > 1 && product.options.metal[0] !== 'Default Title' ? (

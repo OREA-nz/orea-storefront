@@ -1,5 +1,4 @@
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { lockScroll, unlockScroll } from '../../lib/scrollLock';
 
 interface SizeGuideModalProps {
@@ -8,13 +7,22 @@ interface SizeGuideModalProps {
 }
 
 const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose }) => {
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isOpen) {
-      lockScroll();
-    }
-    return () => { unlockScroll(); };
-  }, [isOpen]);
+    if (!isOpen) return;
+    lockScroll();
+
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKey);
+
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+      unlockScroll();
+    };
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -43,17 +51,31 @@ const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose }) => {
   ];
 
   return (
+    /*
+      Overlay: fixed, inset-0, but pad top to clear the navbar (~100px desktop, ~80px mobile).
+      Using pt-[100px] on desktop and pt-[80px] on mobile keeps the modal below the nav.
+      pointer-events on the backdrop handle outside-click to close.
+    */
     <div
-      className="fixed inset-0 z-[200] flex items-center justify-center p-2 sm:p-4 bg-orea-dark/40 backdrop-blur-md animate-in fade-in duration-500"
+      className="fixed inset-0 z-[200] flex items-start justify-center pt-[80px] md:pt-[100px] p-2 sm:p-4 bg-orea-dark/40 backdrop-blur-md animate-in fade-in duration-500"
       onClick={onClose}
     >
+      {/*
+        Content panel: stop click propagation so clicking inside doesn't close.
+        max-h accounts for navbar offset so it never bleeds under nav or off screen.
+        overflow-y-auto keeps it scrollable internally.
+      */}
       <div
-        className="bg-orea-cream w-full max-w-2xl p-6 sm:p-8 md:p-16 rounded-sm shadow-2xl relative overflow-y-auto max-h-[90vh]"
+        ref={contentRef}
+        className="bg-orea-cream w-full max-w-2xl p-6 sm:p-8 md:p-16 rounded-sm shadow-2xl relative overflow-y-auto"
+        style={{ maxHeight: 'calc(100vh - 120px)' }}
         onClick={(e) => e.stopPropagation()}
       >
+        {/* X close button — explicit type="button" prevents any form submission interference */}
         <button
+          type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 sm:top-10 sm:right-10 text-orea-champagne hover:text-orea-dark transition-colors"
+          className="absolute top-4 right-4 sm:top-10 sm:right-10 text-orea-champagne hover:text-orea-dark transition-colors z-10"
           aria-label="Close size guide"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
