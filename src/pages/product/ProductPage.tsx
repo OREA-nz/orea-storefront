@@ -19,55 +19,6 @@ function normalizeCarat(s: string): string {
   return s.replace(' CT', 'CT');
 }
 
-function getProductDetails(_id: string, category: string, _productType: string): { label: string; value: string }[] {
-  const metalRow = { label: 'Metal Choice', value: 'Solid 14k/18k Gold or Platinum' };
-  const certRow  = { label: 'Certification', value: 'IGI Certified Lab-Grown Diamond' };
-  switch (category) {
-    case 'Rings':
-      return [
-        { label: 'Diamond Shape', value: 'Emerald Cut (IGI Certified)' },
-        metalRow,
-        { label: 'Setting Style', value: 'Classic Four-Prong Basket' },
-        certRow,
-      ];
-    case 'Necklaces':
-      return [
-        { label: 'Diamond Shape', value: 'Selected at Checkout' },
-        { label: 'Chain Length', value: '45cm Standard (Adjustable)' },
-        metalRow,
-        { label: 'Setting Style', value: 'Minimalist Basket Setting' },
-      ];
-    case 'Pendants':
-      return [
-        { label: 'Diamond Shape', value: 'Selected at Checkout' },
-        { label: 'Chain Length', value: '45cm (Adjustable)' },
-        metalRow,
-        { label: 'Attachment', value: 'Fine Box Chain Included' },
-      ];
-    case 'Earrings':
-      return [
-        { label: 'Diamond Shape', value: 'Selected at Checkout' },
-        metalRow,
-        { label: 'Backing', value: 'Butterfly Push-Back' },
-        certRow,
-      ];
-    case 'Bracelets':
-      return [
-        { label: 'Diamond Shape', value: 'Selected at Checkout' },
-        { label: 'Bracelet Length', value: '18cm Standard (Adjustable)' },
-        metalRow,
-        { label: 'Setting Style', value: 'Bezel or Prong Setting' },
-      ];
-    default:
-      return [
-        { label: 'Diamond Shape', value: 'Emerald Cut (IGI Certified)' },
-        { label: 'Chain Length', value: '45cm Standard (Adjustable)' },
-        metalRow,
-        { label: 'Setting Style', value: 'Minimalist Four-Prong Basket' },
-      ];
-  }
-}
-
 const SHAPE_OPTIONS = ['Round', 'Oval', 'Emerald', 'Pear', 'Marquise', 'Princess', 'Radiant', 'Asscher', 'Cushion', 'Heart'];
 const RING_SIZES = ['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
@@ -77,10 +28,6 @@ const ProductPage: React.FC = () => {
   const isRing = useMemo(() => {
     const base = PRODUCTS.find(p => p.id === id);
     return base?.category === 'Rings';
-  }, [id]);
-
-  const productCategory = useMemo(() => {
-    return PRODUCTS.find(p => p.id === id)?.category || '';
   }, [id]);
 
   const shopifyData = id ? SHOPIFY_PRODUCTS[id] : undefined;
@@ -238,8 +185,6 @@ const ProductPage: React.FC = () => {
               />
               <ProductTabs
                 description={description || undefined}
-                selectedShape={selectedShape}
-                details={getProductDetails(id || '', productCategory, shopifyData?.productType || '')}
               />
               <ValueProps />
             </div>
