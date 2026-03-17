@@ -1,5 +1,6 @@
 
 import React, { useState, useRef, useCallback, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { lockScroll, unlockScroll } from '../../lib/scrollLock';
 
@@ -46,9 +47,9 @@ const InfoCard: React.FC<InfoCardProps> = ({ icon, title, subtitle, content, mod
         )}
       </button>
 
-      {isOpen && (
+      {isOpen && createPortal(
         <div
-          className="fixed inset-0 z-[110] flex items-end md:items-center justify-center p-0 md:p-4 bg-orea-dark/40 backdrop-blur-sm animate-in fade-in"
+          className="fixed inset-0 z-[9999] flex items-end md:items-center justify-center p-0 md:p-4 bg-orea-dark/40 backdrop-blur-sm animate-in fade-in"
           onClick={handleOverlayClick}
         >
           <div
@@ -75,7 +76,8 @@ const InfoCard: React.FC<InfoCardProps> = ({ icon, title, subtitle, content, mod
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
