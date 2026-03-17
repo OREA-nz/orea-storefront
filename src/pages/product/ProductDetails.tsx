@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate, Link } from 'react-router-dom';
 import { Product, Variant } from './types';
 import { useCart } from '../../context/CartContext';
@@ -72,6 +73,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   const [isHintModalOpen, setIsHintModalOpen] = useState(false);
   const [isReminderModalOpen, setIsReminderModalOpen] = useState(false);
   const [isMetalInfoOpen, setIsMetalInfoOpen] = useState(false);
+  const [isShapeInfoOpen, setIsShapeInfoOpen] = useState(false);
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [statusMsg, setStatusMsg] = useState<{ type: 'success' | 'error', text: string } | null>(null);
@@ -125,7 +127,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   };
 
   const currentMetalInfo = metalMetadata[selectedMetal] || { label: selectedMetal, text: '', gradient: '#D9CFC1' };
-  const labelStyle = "text-micro font-bold uppercase tracking-widest text-orea-dark";
+  const labelStyle = "text-caption font-bold uppercase tracking-widest text-orea-dark";
 
   return (
     <div className="flex flex-col gap-10">
@@ -180,11 +182,27 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
 
       {/* Shape — solitaire non-ring products only */}
       {showShapeSelector && selectedShape && (
-        <DiamondShapeSelector
-          shapes={product.options.shape}
-          selectedShape={selectedShape}
-          onShapeChange={setSelectedShape!}
-        />
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-2">
+            <label className={labelStyle}>Shape:</label>
+            <span className="text-body-sm font-light text-orea-taupe tracking-wide">{selectedShape}</span>
+            <button
+              type="button"
+              onClick={() => setIsShapeInfoOpen(true)}
+              className="text-orea-champagne hover:text-orea-dark transition-colors"
+              aria-label="Diamond shape information"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </button>
+          </div>
+          <DiamondShapeSelector
+            shapes={product.options.shape}
+            selectedShape={selectedShape}
+            onShapeChange={setSelectedShape!}
+          />
+        </div>
       )}
 
       {/* Carat */}
@@ -317,25 +335,63 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
       <GiftReminderModal isOpen={isReminderModalOpen} onClose={() => setIsReminderModalOpen(false)} product={product} />
       {isRing && <SizeGuideModal isOpen={isSizeGuideOpen} onClose={() => setIsSizeGuideOpen(false)} />}
 
-      {isMetalInfoOpen && (
+      {/* Metal info modal */}
+      {isMetalInfoOpen && createPortal(
         <div
-          className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-orea-dark/40 backdrop-blur-sm animate-in fade-in"
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-orea-dark/40 backdrop-blur-sm animate-in fade-in"
           onClick={() => setIsMetalInfoOpen(false)}
         >
           <div
             className="bg-orea-cream w-full max-w-lg p-10 md:p-12 rounded-sm relative shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <button onClick={() => setIsMetalInfoOpen(false)} className="absolute top-6 right-6 text-orea-taupe hover:text-orea-dark">
+            <button type="button" onClick={() => setIsMetalInfoOpen(false)} className="absolute top-6 right-6 text-orea-taupe hover:text-orea-dark transition-colors">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
             <h4 className="text-h4 font-light mb-6 font-serif text-orea-dark uppercase tracking-wide">Precious Metal</h4>
             <div className="text-body-sm text-orea-taupe font-light leading-relaxed flex flex-col gap-4">
-              <p>At ORÉA, our pieces are made to last a lifetime -- not to end up in a landfill. We use only solid 14k or 18k gold and platinum, never plated, filled, or vermeil.</p>
-              <p>Precious metals are inherently durable, repairable, and timeless -- the ultimate expression of lasting value. Platinum is particularly dense and durable, making it an excellent choice for securing precious stones.</p>
+              <p>At ORÉA, our pieces are made to be worn for a lifetime and passed on beyond it. We use only solid 14k or 18k gold and platinum, never plated, filled, or vermeil.</p>
+              <p>Precious metals are inherently durable, repairable, and timeless — the ultimate expression of lasting value. Platinum is particularly dense and durable, making it an excellent choice for securing precious stones.</p>
+              <p>Both 18k gold and platinum are priced the same. Choose the metal you love, without compromise.</p>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
+      )}
+
+      {/* Shape info modal — solitaire non-ring products only */}
+      {isShapeInfoOpen && createPortal(
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-orea-dark/40 backdrop-blur-sm animate-in fade-in"
+          onClick={() => setIsShapeInfoOpen(false)}
+        >
+          <div
+            className="bg-orea-cream w-full max-w-lg p-10 md:p-12 rounded-sm relative shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button type="button" onClick={() => setIsShapeInfoOpen(false)} className="absolute top-6 right-6 text-orea-taupe hover:text-orea-dark transition-colors">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <h4 className="text-h4 font-light mb-6 font-serif text-orea-dark uppercase tracking-wide">Diamond Shape</h4>
+            <div className="text-body-sm text-orea-taupe font-light leading-relaxed flex flex-col gap-4">
+              <p>Each diamond shape carries its own character and light performance. The shape you choose is entirely personal — it reflects your style, not your budget.</p>
+              <p>All diamond shapes at ORÉA are priced by carat alone. Whether you choose a Round, Oval, Emerald, or Pear, the price is determined only by the size of the stone.</p>
+              <div className="flex flex-col gap-2 border-l border-orea-sand pl-6 mt-2">
+                <p><strong className="text-orea-dark">Round</strong> — The most brilliant cut, with unmatched light return and timeless appeal.</p>
+                <p><strong className="text-orea-dark">Oval</strong> — An elegant elongated shape that flatters the finger and maximises perceived size.</p>
+                <p><strong className="text-orea-dark">Emerald</strong> — A step-cut with long, open facets and a sophisticated, architectural look.</p>
+                <p><strong className="text-orea-dark">Pear</strong> — A romantic teardrop silhouette that combines the brilliance of round with the elegance of marquise.</p>
+                <p><strong className="text-orea-dark">Marquise</strong> — A bold, elongated shape with pointed ends that creates a dramatic, striking appearance.</p>
+                <p><strong className="text-orea-dark">Princess</strong> — A square cut with exceptional brilliance and a modern, geometric edge.</p>
+                <p><strong className="text-orea-dark">Radiant</strong> — A rectangular cut with cropped corners, combining the elegance of emerald with the brilliance of round.</p>
+                <p><strong className="text-orea-dark">Asscher</strong> — A square step-cut with deep facets and a distinctive vintage character.</p>
+                <p><strong className="text-orea-dark">Cushion</strong> — A soft square or rectangular shape with rounded corners and a romantic, vintage feel.</p>
+                <p><strong className="text-orea-dark">Heart</strong> — A symbol of love and intention, cut to maximise brilliance in a distinctive silhouette.</p>
+              </div>
+            </div>
+          </div>
+        </div>,
+        document.body
       )}
     </div>
   );
