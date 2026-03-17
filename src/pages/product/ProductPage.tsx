@@ -221,4 +221,8 @@ const ProductPage: React.FC = () => {
       selectedSize={selectedSize || undefined}
       variantId={selectedVariantId}
     />
-    </>
+        </>
+  );
+};
+
+export default ProductPage;
