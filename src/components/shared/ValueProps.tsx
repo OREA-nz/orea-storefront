@@ -54,7 +54,7 @@ const InfoCard: React.FC<InfoCardProps> = ({ icon, title, subtitle, content, mod
           <div
             ref={contentRef}
             className="bg-orea-cream w-full rounded-t-lg md:rounded-sm relative shadow-2xl overflow-y-auto no-scrollbar flex flex-col"
-            style={{ width: '600px', maxWidth: '100%', height: modalHeight, maxHeight: '90vh' }}
+            style={{ width: '600px', maxWidth: '100%', maxHeight: '90vh' }}
           >
             <button
               onClick={() => setIsOpen(false)}
