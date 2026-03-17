@@ -45,10 +45,6 @@ export const GENERAL_FAQ: FAQItem[] = [
     answer: "Absolutely! We understand many of our pieces are purchased for meaningful moments such as proposals or special gifts. If you have specific concerns or requests to help maintain the surprise, feel free to let us know and we're happy to assist where possible."
   },
   {
-    question: "Do you ship worldwide?",
-    answer: "ORÉA ships internationally to most countries via DHL, so you can track your jewellery door to door.\n\nAll orders are charged exclusive of taxes. Depending on your destination, customs duties or import taxes may apply upon arrival. Any customs or duty charges incurred upon entry into your destination country are the responsibility of the recipient.\n\nWe recommend researching your local import regulations before placing your order. ORÉA holds no responsibility for any charges applied by DHL or a local tax authority on internationally shipped purchases."
-  },
-  {
     question: "Still Have Questions?",
     answer: "If you have a question that isn't covered here, we'd love to hear from you. You can reach us at hello@orea.co.nz or through our Contact page."
   }
