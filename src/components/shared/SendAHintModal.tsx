@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { Product } from './types';
 import { sendHintEmail } from '../../lib/email';
@@ -63,16 +64,16 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
 
   const inputClass = "w-full py-4 bg-transparent border-b border-orea-sand/50 text-body-sm focus:outline-none focus:border-orea-champagne transition-all duration-500 placeholder:text-orea-champagne/60 font-light tracking-widest text-orea-dark";
 
-  return (
-    /*
-      Overlay: fixed, inset-0, padded top to clear navbar.
-      Clicking the backdrop (overlay itself) closes the modal.
-    */
+  /*
+    Rendered via createPortal directly onto document.body so it sits outside
+    every stacking context (including Footer's isolate + transform-gpu).
+    z-[9999] guarantees it renders above all page content regardless of scroll position.
+  */
+  return createPortal(
     <div
-      className="fixed inset-0 z-[150] flex items-start justify-center pt-[80px] md:pt-[100px] p-0 sm:p-4 bg-orea-dark/60 backdrop-blur-sm animate-in fade-in duration-700"
+      className="fixed inset-0 z-[9999] flex items-start justify-center pt-[80px] md:pt-[100px] p-0 sm:p-4 bg-orea-dark/60 backdrop-blur-sm animate-in fade-in duration-700"
       onClick={onClose}
     >
-      {/* Content — stopPropagation prevents backdrop click from firing */}
       <div
         className="bg-orea-cream w-full max-w-5xl rounded-t-lg sm:rounded-sm shadow-2xl overflow-hidden flex flex-col md:flex-row relative animate-in zoom-in-95 duration-500"
         style={{ maxHeight: 'calc(100vh - 100px)' }}
@@ -98,28 +99,18 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
                 <svg className="w-6 h-6 text-orea-dark animate-in zoom-in duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M5 13l4 4L19 7" /></svg>
               </div>
             </div>
-
             <div className="max-w-md flex flex-col gap-6">
               <h3 className="text-h2 font-light font-serif italic text-orea-dark">Sent with Care</h3>
               <p className="text-body text-orea-taupe font-light leading-relaxed font-serif italic">
                 A thoughtful gesture for a beautiful future. Your hint to {formData.receiverName || 'them'} has been shared.
               </p>
-
               <div className="pt-12 flex flex-col items-center gap-8">
                 <div className="h-px w-12 bg-orea-sand" />
                 <div className="flex flex-col md:flex-row gap-8">
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    className="text-micro font-bold uppercase tracking-widest text-orea-dark border-b border-orea-dark pb-2 hover:text-orea-taupe hover:border-orea-taupe transition-all"
-                  >
+                  <button type="button" onClick={onClose} className="text-micro font-bold uppercase tracking-widest text-orea-dark border-b border-orea-dark pb-2 hover:text-orea-taupe hover:border-orea-taupe transition-all">
                     Return to the Piece
                   </button>
-                  <button
-                    type="button"
-                    onClick={() => { onClose(); navigate('/concierge'); }}
-                    className="text-micro font-bold uppercase tracking-widest text-orea-taupe hover:text-orea-dark transition-all"
-                  >
+                  <button type="button" onClick={() => { onClose(); navigate('/concierge'); }} className="text-micro font-bold uppercase tracking-widest text-orea-taupe hover:text-orea-dark transition-all">
                     Discuss Bespoke Sourcing
                   </button>
                 </div>
@@ -169,9 +160,7 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
 
                 <div className="mt-12 flex flex-col gap-6">
                   {status === 'error' && (
-                    <p className="text-micro font-bold uppercase tracking-widest text-orea-error text-center animate-in slide-in-from-top-2">
-                      {errorMsg}
-                    </p>
+                    <p className="text-micro font-bold uppercase tracking-widest text-orea-error text-center animate-in slide-in-from-top-2">{errorMsg}</p>
                   )}
                   <button
                     type="submit"
@@ -180,9 +169,7 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
                   >
                     {status === 'sending' ? (
                       <div className="w-4 h-4 border border-orea-cream/30 border-t-orea-cream rounded-full animate-spin" />
-                    ) : (
-                      'Send Hint'
-                    )}
+                    ) : 'Send Hint'}
                   </button>
                   <div className="text-micro font-bold uppercase tracking-wider text-orea-champagne/60 text-center">
                     {"We'll only send this once, unless they choose to hear from us."}
@@ -215,20 +202,12 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
 
                   <div className="relative group mx-auto w-fit py-2">
                     <div className="bg-orea-cream p-2 shadow-sm">
-                      <img
-                        src={product.images[0] || "/placeholder.svg"}
-                        alt="Hint Product"
-                        width={2048}
-                        height={2048}
-                        className="w-48 h-60 object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-1000"
-                      />
+                      <img src={product.images[0] || "/placeholder.svg"} alt="Hint Product" width={1445} height={1445} className="w-48 h-60 object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-1000" />
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-6 pt-2">
-                    <div>
-                      <h4 className="font-serif text-micro font-bold uppercase tracking-widest text-orea-dark mb-1">{product.name}</h4>
-                    </div>
+                    <h4 className="font-serif text-micro font-bold uppercase tracking-widest text-orea-dark mb-1">{product.name}</h4>
 
                     {formData.message && (
                       <div className="pt-4 border-t border-orea-sand/30">
@@ -251,7 +230,8 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({ isOpen, onClose, produc
           </>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

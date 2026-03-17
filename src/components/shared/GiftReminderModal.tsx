@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Product } from './types';
 import { sendReminderEmail } from '../../lib/email';
 import { lockScroll, unlockScroll } from '../../lib/scrollLock';
@@ -72,21 +73,19 @@ const GiftReminderModal: React.FC<GiftReminderModalProps> = ({ isOpen, onClose, 
     }
   };
 
-  /* Darkened body text: text-orea-dark instead of text-orea-dark for inputs,
-     labels keep tracking/weight, body copy uses text-orea-dark for better readability */
   const inputClass = "w-full py-4 bg-transparent border-b border-orea-sand/50 text-body-sm focus:outline-none focus:border-orea-champagne transition-all duration-500 placeholder:text-orea-champagne/60 font-light tracking-widest text-orea-dark";
   const labelClass = "text-micro font-bold uppercase tracking-widest text-orea-dark block mb-1";
 
-  return (
-    /*
-      Overlay: fixed, inset-0, top-padded to clear navbar.
-      Clicking the overlay itself calls onClose.
-    */
+  /*
+    Rendered via createPortal directly onto document.body so it sits outside
+    every stacking context (including Footer's isolate + transform-gpu).
+    z-[9999] guarantees it renders above all page content regardless of scroll position.
+  */
+  return createPortal(
     <div
-      className="fixed inset-0 z-[150] flex items-start justify-center pt-[80px] md:pt-[100px] p-0 sm:p-4 bg-orea-dark/60 backdrop-blur-sm animate-in fade-in duration-700"
+      className="fixed inset-0 z-[9999] flex items-start justify-center pt-[80px] md:pt-[100px] p-0 sm:p-4 bg-orea-dark/60 backdrop-blur-sm animate-in fade-in duration-700"
       onClick={onClose}
     >
-      {/* Content — stopPropagation keeps inside clicks from closing */}
       <div
         className="bg-orea-cream w-full max-w-4xl rounded-t-lg sm:rounded-sm shadow-2xl overflow-hidden flex flex-col md:flex-row relative animate-in zoom-in-95 duration-500"
         style={{ maxHeight: 'calc(100vh - 100px)' }}
@@ -120,11 +119,7 @@ const GiftReminderModal: React.FC<GiftReminderModalProps> = ({ isOpen, onClose, 
               <p className="text-body-sm text-orea-dark/70 font-light leading-relaxed max-w-xs">
                 We will reach out {formData.leadTime} days before your {formData.occasion.toLowerCase()} so you have time to prepare.
               </p>
-              <button
-                type="button"
-                onClick={onClose}
-                className="mt-4 text-micro font-bold uppercase tracking-widest text-orea-dark border-b border-orea-dark pb-2 hover:text-orea-taupe hover:border-orea-taupe transition-all"
-              >
+              <button type="button" onClick={onClose} className="mt-4 text-micro font-bold uppercase tracking-widest text-orea-dark border-b border-orea-dark pb-2 hover:text-orea-taupe hover:border-orea-taupe transition-all">
                 Return to the Piece
               </button>
             </div>
@@ -152,9 +147,7 @@ const GiftReminderModal: React.FC<GiftReminderModalProps> = ({ isOpen, onClose, 
                     <div>
                       <label className={labelClass}>Occasion date</label>
                       <input id="occasion-date" type="date" min={today} className={inputClass} value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} required />
-                      {dateError && (
-                        <p className="text-micro text-orea-error mt-1">{dateError}</p>
-                      )}
+                      {dateError && <p className="text-micro text-orea-error mt-1">{dateError}</p>}
                     </div>
                   </div>
 
@@ -182,9 +175,7 @@ const GiftReminderModal: React.FC<GiftReminderModalProps> = ({ isOpen, onClose, 
 
               <div className="mt-12 flex flex-col gap-4">
                 {status === 'error' && (
-                  <p className="text-micro font-bold uppercase tracking-widest text-orea-error text-center animate-in slide-in-from-top-2">
-                    {errorMsg}
-                  </p>
+                  <p className="text-micro font-bold uppercase tracking-widest text-orea-error text-center animate-in slide-in-from-top-2">{errorMsg}</p>
                 )}
                 <button
                   type="submit"
@@ -212,7 +203,6 @@ const GiftReminderModal: React.FC<GiftReminderModalProps> = ({ isOpen, onClose, 
             </div>
 
             <div className="flex flex-col gap-4">
-              {/* Darkened body copy for readability */}
               <p className="font-serif italic text-body text-orea-dark/70 leading-relaxed px-2">
                 {"We'll gently remind you"} {formData.leadTime} days before your upcoming {formData.occasion.toLowerCase()} — so you have time to prepare.
               </p>
@@ -223,13 +213,7 @@ const GiftReminderModal: React.FC<GiftReminderModalProps> = ({ isOpen, onClose, 
                 <p className="text-micro font-bold uppercase tracking-wider text-orea-dark">{product.name}</p>
                 <div className="relative group">
                   <div className="bg-orea-cream p-2">
-                    <img
-                      src={product.images[0] || "/placeholder.svg"}
-                      alt="Product thumbnail"
-                      width={2048}
-                      height={2048}
-                      className="w-24 h-32 object-cover mx-auto grayscale opacity-40 group-hover:opacity-60 transition-opacity"
-                    />
+                    <img src={product.images[0] || "/placeholder.svg"} alt="Product thumbnail" width={1445} height={1445} className="w-24 h-32 object-cover mx-auto grayscale opacity-40 group-hover:opacity-60 transition-opacity" />
                   </div>
                 </div>
               </div>
@@ -245,7 +229,8 @@ const GiftReminderModal: React.FC<GiftReminderModalProps> = ({ isOpen, onClose, 
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

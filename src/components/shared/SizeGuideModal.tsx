@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { lockScroll, unlockScroll } from '../../lib/scrollLock';
 
 interface SizeGuideModalProps {
@@ -50,28 +51,22 @@ const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose }) => {
     { au: 'Z', us: '12.5', eu: '69', mm: '21.8' },
   ];
 
-  return (
-    /*
-      Overlay: fixed, inset-0, but pad top to clear the navbar (~100px desktop, ~80px mobile).
-      Using pt-[100px] on desktop and pt-[80px] on mobile keeps the modal below the nav.
-      pointer-events on the backdrop handle outside-click to close.
-    */
+  /*
+    Rendered via createPortal directly onto document.body so it sits outside
+    every stacking context (including Footer's isolate + transform-gpu).
+    z-[9999] guarantees it renders above all page content regardless of scroll position.
+  */
+  return createPortal(
     <div
-      className="fixed inset-0 z-[200] flex items-start justify-center pt-[80px] md:pt-[100px] p-2 sm:p-4 bg-orea-dark/40 backdrop-blur-md animate-in fade-in duration-500"
+      className="fixed inset-0 z-[9999] flex items-start justify-center pt-[80px] md:pt-[100px] p-2 sm:p-4 bg-orea-dark/40 backdrop-blur-md animate-in fade-in duration-500"
       onClick={onClose}
     >
-      {/*
-        Content panel: stop click propagation so clicking inside doesn't close.
-        max-h accounts for navbar offset so it never bleeds under nav or off screen.
-        overflow-y-auto keeps it scrollable internally.
-      */}
       <div
         ref={contentRef}
         className="bg-orea-cream w-full max-w-2xl p-6 sm:p-8 md:p-16 rounded-sm shadow-2xl relative overflow-y-auto"
         style={{ maxHeight: 'calc(100vh - 120px)' }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* X close button — explicit type="button" prevents any form submission interference */}
         <button
           type="button"
           onClick={onClose}
@@ -140,7 +135,8 @@ const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose }) => {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
