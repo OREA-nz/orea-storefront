@@ -21,13 +21,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         subject: `A little hint from ${data.senderName}`,
         html: `
           <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 48px 32px; background: #FAF8F5; color: #2C2520;">
-            <p style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #B8A99A; margin-bottom: 32px;">ORÉA Fine Jewellery</p>
+            <a href="https://orea.co.nz" style="text-decoration: none;">
+              <p style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #B8A99A; margin-bottom: 32px;">ORÉA Fine Jewellery</p>
+            </a>
             <h1 style="font-size: 28px; font-weight: 300; font-style: italic; margin-bottom: 24px;">Dear ${data.receiverName},</h1>
             <p style="font-size: 16px; line-height: 1.8; color: #6B5E55; margin-bottom: 24px;">
               Someone who cares about you has shared something they would love for you to see.
             </p>
             <div style="border: 1px solid #E8DDD6; padding: 24px; margin: 32px 0; text-align: center;">
-              <p style="font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C2520; margin-bottom: 8px;">${data.productName}</p>
+              ${data.productImage ? `
+              <a href="${data.productUrl || 'https://orea.co.nz'}" style="display: block; margin-bottom: 16px;">
+                <img src="${data.productImage}" alt="A piece from ORÉA" style="max-width: 100%; max-height: 320px; object-fit: contain; display: block; margin: 0 auto;" />
+              </a>
+              ` : ''}
               ${data.productUrl ? `<a href="${data.productUrl}" style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #B8A99A;">View the Piece →</a>` : ''}
             </div>
             ${data.message ? `
@@ -37,7 +43,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             </div>
             ` : ''}
             <p style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #B8A99A; margin-top: 48px; border-top: 1px solid #E8DDD6; padding-top: 24px;">
-              With Love, ORÉA
+              With Love, <a href="https://orea.co.nz" style="color: #B8A99A; text-decoration: none;">ORÉA</a>
             </p>
           </div>
         `,
@@ -49,20 +55,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         subject: `Your ORÉA reminder — ${data.occasion} in ${data.leadTime} days`,
         html: `
           <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 48px 32px; background: #FAF8F5; color: #2C2520;">
-            <p style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #B8A99A; margin-bottom: 32px;">ORÉA Fine Jewellery</p>
+            <a href="https://orea.co.nz" style="text-decoration: none;">
+              <p style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #B8A99A; margin-bottom: 32px;">ORÉA Fine Jewellery</p>
+            </a>
             <h1 style="font-size: 28px; font-weight: 300; font-style: italic; margin-bottom: 24px;">Dear ${data.name},</h1>
             <p style="font-size: 16px; line-height: 1.8; color: #6B5E55; margin-bottom: 24px;">
               A gentle reminder that your ${data.occasion.toLowerCase()} is coming up on <strong>${data.occasionDate}</strong>.
             </p>
             <div style="border: 1px solid #E8DDD6; padding: 24px; margin: 32px 0; text-align: center;">
-              <p style="font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: #2C2520; margin-bottom: 8px;">${data.productName}</p>
+              ${data.productImage ? `
+              <a href="${data.productUrl || 'https://orea.co.nz'}" style="display: block; margin-bottom: 16px;">
+                <img src="${data.productImage}" alt="A piece from ORÉA" style="max-width: 100%; max-height: 320px; object-fit: contain; display: block; margin: 0 auto;" />
+              </a>
+              ` : ''}
               ${data.productUrl ? `<a href="${data.productUrl}" style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #B8A99A;">View the Piece →</a>` : ''}
             </div>
             <p style="font-size: 15px; line-height: 1.8; color: #6B5E55;">
               Our concierge team is available to assist with any questions.
             </p>
             <p style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #B8A99A; margin-top: 48px; border-top: 1px solid #E8DDD6; padding-top: 24px;">
-              With Love, ORÉA
+              With Love, <a href="https://orea.co.nz" style="color: #B8A99A; text-decoration: none;">ORÉA</a>
             </p>
           </div>
         `,
