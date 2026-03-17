@@ -14,7 +14,7 @@ import { PRODUCTS } from '../collection/constants';
 import { SHOPIFY_PRODUCTS } from '../../data/shopifyProducts';
 import { shopifyFetch, GET_PRODUCT_BY_HANDLE, SHOPIFY_CONFIG } from '../../lib/shopify';
 import { useShopifyProductImages } from '../../hooks/useShopifyImages';
-import SendAHintModal from './SendAHintModal';
+import SendAHintModal from '../../components/shared/SendAHintModal';
 
 
 // Normalize carat string: '1.0 CT' → '1.0CT'
