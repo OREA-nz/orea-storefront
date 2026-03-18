@@ -79,7 +79,7 @@ const AuthPage: React.FC = () => {
           <h1 className="text-h2 font-light text-orea-dark tracking-wide font-serif uppercase">
             {mode === 'signin' ? 'Welcome Back' : mode === 'signup' ? 'Create Account' : 'Reset Password'}
           </h1>
-          <p className="text-body-sm font-light tracking-wide" style={{ color: '#4A3F35' }}>
+          <p className="text-body-sm font-light tracking-wide text-orea-dark">
             {mode === 'signin'
               ? 'Sign in to access your account, order history, and saved pieces.'
               : mode === 'signup'
@@ -115,7 +115,7 @@ const AuthPage: React.FC = () => {
           )}
 
           {success && (
-            <p className="text-body-sm font-light tracking-wide text-center" style={{ color: '#4A3F35' }}>{success}</p>
+            <p className="text-body-sm font-light tracking-wide text-center text-orea-dark">{success}</p>
           )}
 
           <button type="submit" disabled={loading} className="w-full py-5 bg-orea-dark text-orea-cream text-micro font-bold uppercase tracking-widest hover:bg-orea-taupe transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
@@ -124,7 +124,7 @@ const AuthPage: React.FC = () => {
           </button>
 
           {mode === 'signin' && (
-            <p className="text-body-sm text-center tracking-wide" style={{ color: '#4A3F35' }}>
+            <p className="text-body-sm text-center tracking-wide text-orea-dark">
               Forgot your password?{' '}
               <button type="button" onClick={() => { setMode('recover'); setError(''); setSuccess(''); }} className="text-orea-dark font-medium underline underline-offset-4 hover:text-orea-gold-a transition-colors">
                 Reset your password here
@@ -133,7 +133,7 @@ const AuthPage: React.FC = () => {
           )}
 
           {mode === 'recover' && (
-            <p className="text-body-sm text-center tracking-wide" style={{ color: '#4A3F35' }}>
+            <p className="text-body-sm text-center tracking-wide text-orea-dark">
               Remember your password?{' '}
               <button type="button" onClick={() => { setMode('signin'); setError(''); setSuccess(''); }} className="text-orea-dark font-medium underline underline-offset-4 hover:text-orea-gold-a transition-colors">
                 Back to sign in
@@ -144,12 +144,12 @@ const AuthPage: React.FC = () => {
 
         <div className="text-center border-t border-orea-champagne/15 pt-8">
           {mode === 'signin' || mode === 'recover' ? (
-            <p className="text-body-sm font-light tracking-wide" style={{ color: '#4A3F35' }}>
+            <p className="text-body-sm font-light tracking-wide text-orea-dark">
               {"Don't have an account? "}
               <button onClick={() => { setMode('signup'); setError(''); setSuccess(''); }} className="text-orea-dark font-medium underline underline-offset-4 hover:text-orea-gold-a transition-colors">Create one</button>
             </p>
           ) : (
-            <p className="text-body-sm font-light tracking-wide" style={{ color: '#4A3F35' }}>
+            <p className="text-body-sm font-light tracking-wide text-orea-dark">
               Already have an account?{' '}
               <button onClick={() => { setMode('signin'); setError(''); setSuccess(''); }} className="text-orea-dark font-medium underline underline-offset-4 hover:text-orea-gold-a transition-colors">Sign in</button>
             </p>

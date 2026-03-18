@@ -15,7 +15,7 @@ const BrandValues: React.FC = () => {
               <span className="text-orea-dark text-caption tracking-[0.4em] uppercase font-semibold leading-none">
                 Lab-Grown Only
               </span>
-              <span className="text-orea-taupe text-micro tracking-[0.3em] uppercase font-light leading-none">
+              <span className="text-orea-mocha text-micro tracking-[0.3em] uppercase font-normal leading-none">
                 Never mined.
               </span>
             </div>
@@ -28,7 +28,7 @@ const BrandValues: React.FC = () => {
               <span className="text-orea-dark text-caption tracking-[0.4em] uppercase font-semibold leading-none">
                 Solid Gold - Always
               </span>
-              <span className="text-orea-taupe text-micro tracking-[0.3em] uppercase font-light leading-none">
+              <span className="text-orea-mocha text-micro tracking-[0.3em] uppercase font-normal leading-none">
                 14k, 18k, Platinum
               </span>
             </div>
@@ -41,7 +41,7 @@ const BrandValues: React.FC = () => {
               <span className="text-orea-dark text-caption tracking-[0.4em] uppercase font-semibold leading-none">
                 Made to Order
               </span>
-              <span className="text-orea-taupe text-micro tracking-[0.3em] uppercase font-light leading-none">
+              <span className="text-orea-mocha text-micro tracking-[0.3em] uppercase font-normal leading-none">
                 Crafted with care.
               </span>
             </div>

@@ -98,52 +98,63 @@ const Navbar: React.FC = () => {
         
         {/* Left Pillar Navigation */}
         <div className="hidden lg:flex items-center gap-12 text-caption tracking-[0.4em] font-medium text-orea-dark uppercase">
-          <div 
-            className="relative group py-2 cursor-pointer"
+          <div
+            className="relative group py-2"
             onMouseEnter={() => setActiveDropdown('shop')}
           >
-            <Link to="/collection" onClick={() => setActiveDropdown(null)} className={`hover:text-orea-gold-a transition-colors duration-500 ${activeDropdown === 'shop' ? 'text-orea-gold-a' : ''}`}>
+            <Link
+              to="/collection"
+              onClick={() => setActiveDropdown(null)}
+              onFocus={() => setActiveDropdown('shop')}
+              aria-expanded={activeDropdown === 'shop'}
+              aria-haspopup="true"
+              aria-controls="shop-dropdown"
+              className={`hover:text-orea-gold-a transition-colors duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orea-gold-a rounded-sm ${activeDropdown === 'shop' ? 'text-orea-gold-a' : ''}`}
+            >
               Shop
             </Link>
           </div>
-          
-          <div 
-            className="relative group py-2 cursor-pointer"
+
+          <button
+            className={`relative group py-2 hover:text-orea-gold-a transition-colors duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orea-gold-a rounded-sm ${activeDropdown === 'concierge' ? 'text-orea-gold-a' : ''}`}
             onMouseEnter={() => setActiveDropdown('concierge')}
+            onFocus={() => setActiveDropdown('concierge')}
+            onClick={() => setActiveDropdown(prev => prev === 'concierge' ? null : 'concierge')}
+            aria-expanded={activeDropdown === 'concierge'}
+            aria-haspopup="true"
+            aria-controls="concierge-dropdown"
           >
-            <span className={`hover:text-orea-gold-a transition-colors duration-500 ${activeDropdown === 'concierge' ? 'text-orea-gold-a' : ''}`}>
-              Concierge
-            </span>
-          </div>
+            Concierge
+          </button>
         </div>
 
         {/* Mobile Menu Toggle */}
-        <button className="lg:hidden text-orea-dark p-2" onClick={() => setIsMenuOpen(true)} aria-label="Open menu">
+        <button className="lg:hidden text-orea-dark p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orea-gold-a rounded-sm" onClick={() => setIsMenuOpen(true)} aria-label="Open menu">
           <Menu size={20} strokeWidth={1.5} />
         </button>
 
         {/* Logo */}
         <div className="absolute left-1/2 -translate-x-1/2 text-center">
-          <Link to="/" onClick={() => setActiveDropdown(null)} className="font-serif text-h3 tracking-[0.15em] text-orea-dark hover:opacity-70 transition-opacity duration-700">
+          <Link to="/" onClick={() => setActiveDropdown(null)} className="font-serif text-h3 tracking-[0.15em] text-orea-dark hover:opacity-70 transition-opacity duration-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orea-gold-a rounded-sm">
             ORÉA
           </Link>
         </div>
 
         {/* Right Icons */}
         <div className="flex items-center gap-4 md:gap-8 text-orea-dark">
-          <button onClick={() => setIsSearchOpen(true)} className="p-2 hover:text-orea-gold-a transition-colors duration-500" aria-label="Search">
+          <button onClick={() => setIsSearchOpen(true)} className="p-2 hover:text-orea-gold-a transition-colors duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orea-gold-a rounded-sm" aria-label="Search">
             <Search size={18} strokeWidth={1.2} />
           </button>
           
           <Link
             to={user ? '/profile' : '/auth'}
-            className="hidden sm:block p-2 hover:text-orea-gold-a transition-colors duration-500"
+            className="hidden sm:block p-2 hover:text-orea-gold-a transition-colors duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orea-gold-a rounded-sm"
             aria-label="Account"
           >
             <User size={18} strokeWidth={1.2} />
           </Link>
           
-          <button onClick={openDrawer} className="p-2 hover:text-orea-gold-a transition-colors duration-500 relative" aria-label="Shopping Bag">
+          <button onClick={openDrawer} className="p-2 hover:text-orea-gold-a transition-colors duration-500 relative focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orea-gold-a rounded-sm" aria-label="Shopping Bag">
             <ShoppingBag size={18} strokeWidth={1.2} />
             {totalItems > 0 && (
               <span className="absolute -top-0.5 -right-0.5 text-micro bg-orea-dark text-orea-cream w-3.5 h-3.5 rounded-full flex items-center justify-center font-bold">
@@ -155,7 +166,7 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* SHOP Dropdown (Desktop only) */}
-      <div className={`hidden lg:block absolute left-0 w-full bg-orea-cream transition-all duration-700 ease-in-out overflow-hidden shadow-[0_30px_60px_-15px_rgba(74,63,53,0.1)] ${
+      <div id="shop-dropdown" className={`hidden lg:block absolute left-0 w-full bg-orea-cream transition-all duration-700 ease-in-out overflow-hidden shadow-[0_30px_60px_-15px_rgba(74,63,53,0.1)] ${
         activeDropdown === 'shop' ? 'max-h-[850px] opacity-100 visible' : 'max-h-0 opacity-0 invisible'
       }`}>
         <div className="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-row items-start">
@@ -225,7 +236,7 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* CONCIERGE Dropdown (Desktop only) */}
-      <div className={`hidden lg:block absolute left-0 w-full bg-orea-cream transition-all duration-700 ease-in-out overflow-hidden shadow-[0_30px_60px_-15px_rgba(74,63,53,0.1)] ${
+      <div id="concierge-dropdown" className={`hidden lg:block absolute left-0 w-full bg-orea-cream transition-all duration-700 ease-in-out overflow-hidden shadow-[0_30px_60px_-15px_rgba(74,63,53,0.1)] ${
         activeDropdown === 'concierge' ? 'max-h-[600px] opacity-100 visible' : 'max-h-0 opacity-0 invisible'
       }`}>
         <div className="max-w-wide mx-auto px-4 sm:px-6 lg:px-8 py-section-sm grid grid-cols-3 gap-24">
@@ -266,7 +277,7 @@ const Navbar: React.FC = () => {
         <div className={`fixed inset-0 bg-orea-cream z-[60] flex flex-col p-8 md:p-12 transition-all duration-700 transform-gpu ${isMenuOpen ? 'translate-x-0 opacity-100 pointer-events-auto' : 'translate-x-full opacity-0 pointer-events-none'}`}>
           <div className="flex justify-between items-center mb-12">
             <h2 className="font-serif text-h3 tracking-widest text-orea-dark uppercase">ORÉA</h2>
-            <button onClick={() => setIsMenuOpen(false)} className="text-orea-dark p-2" aria-label="Close menu">
+            <button onClick={() => setIsMenuOpen(false)} className="text-orea-dark p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orea-gold-a rounded-sm" aria-label="Close menu">
               <X size={24} strokeWidth={1.2} />
             </button>
           </div>
@@ -300,10 +311,10 @@ const Navbar: React.FC = () => {
 
           {/* Mobile Menu Bottom Bar */}
           <div className="pt-8 border-t border-orea-champagne/20 flex justify-center gap-12">
-             <button onClick={() => { setIsMenuOpen(false); setIsSearchOpen(true); }} aria-label="Search">
+             <button onClick={() => { setIsMenuOpen(false); setIsSearchOpen(true); }} aria-label="Search" className="p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orea-gold-a rounded-sm">
                <Search size={20} strokeWidth={1} className="text-orea-dark" />
              </button>
-             <Link to={user ? "/profile" : "/auth"} onClick={() => setIsMenuOpen(false)} aria-label="Account">
+             <Link to={user ? "/profile" : "/auth"} onClick={() => setIsMenuOpen(false)} aria-label="Account" className="p-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orea-gold-a rounded-sm">
                <User size={20} strokeWidth={1} className="text-orea-dark" />
              </Link>
           </div>
@@ -314,7 +325,7 @@ const Navbar: React.FC = () => {
       {/* Search Overlay — rendered via portal to ensure it's fixed to the viewport */}
       {createPortal(
         <div className={`fixed inset-0 z-[70] bg-orea-cream/[0.98] backdrop-blur-sm transition-all duration-500 flex flex-col items-center justify-start pt-32 px-8 ${isSearchOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
-          <button onClick={() => setIsSearchOpen(false)} className="absolute top-8 right-8 text-orea-taupe hover:text-orea-dark transition-colors" aria-label="Close search">
+          <button onClick={() => setIsSearchOpen(false)} className="absolute top-8 right-8 text-orea-taupe hover:text-orea-dark transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orea-gold-a rounded-sm" aria-label="Close search">
             <X size={24} strokeWidth={1.2} />
           </button>
           <form onSubmit={handleSearch} className="w-full max-w-lg flex flex-col items-center gap-8">
@@ -328,7 +339,7 @@ const Navbar: React.FC = () => {
                 placeholder="What are you looking for?"
                 className="w-full bg-transparent border-b border-orea-dark/20 focus:border-orea-dark py-4 text-body font-light text-orea-dark placeholder:text-orea-champagne outline-none transition-colors"
               />
-              <button type="submit" className="absolute right-0 top-1/2 -translate-y-1/2 text-orea-taupe hover:text-orea-dark transition-colors" aria-label="Submit search">
+              <button type="submit" className="absolute right-0 top-1/2 -translate-y-1/2 text-orea-taupe hover:text-orea-dark transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orea-gold-a rounded-sm" aria-label="Submit search">
                 <Search size={18} strokeWidth={1.2} />
               </button>
             </div>
@@ -338,7 +349,7 @@ const Navbar: React.FC = () => {
                   key={term}
                   to={`/collection?category=${term}`}
                   onClick={() => { setIsSearchOpen(false); setSearchQuery(''); }}
-                  className="text-micro font-bold uppercase tracking-widest text-orea-taupe hover:text-orea-dark border border-orea-champagne/20 px-4 py-2 hover:border-orea-dark transition-all"
+                  className="text-micro font-bold uppercase tracking-widest text-orea-taupe hover:text-orea-dark border border-orea-champagne/20 px-4 py-2 hover:border-orea-dark transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orea-gold-a"
                 >
                   {term}
                 </Link>
