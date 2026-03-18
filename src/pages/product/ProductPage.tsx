@@ -156,26 +156,13 @@ const ProductPage: React.FC = () => {
 
   // Reset selections whenever the resolved product changes
   useEffect(() => {
-    if (!product) return;
-
-    const variantParam = searchParams.get('variant');
-    const matchedVariant = variantParam
-      ? product.variants?.find((v) => v.id === Number(variantParam))
-      : null;
-
-    if (matchedVariant) {
-      // Pre-select from variant param — option1 = metal, option2 = carat (normalised)
-      setSelectedMetal(matchedVariant.option1 || product.options.metal[0] || '');
-      setSelectedCarat(matchedVariant.option2 || product.options.carat[0] || '');
-      setSelectedShape('Emerald');
-      setSelectedSize(searchParams.get('size') || (isRing ? 'L' : 'Standard'));
-    } else {
+    if (product) {
       setSelectedMetal(product.options.metal[0] || '');
       setSelectedShape('Emerald');
       setSelectedCarat(product.options.carat[0] || '');
       setSelectedSize(isRing ? 'L' : 'Standard');
     }
-  }, [product?.id, product?.options.metal[0], product?.options.carat[0], isRing]);
+  }, [product?.id, product?.options.metal[0], product?.options.carat[0], isRing]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!product) {
     return (
