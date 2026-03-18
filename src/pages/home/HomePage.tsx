@@ -8,8 +8,8 @@ import FeaturedProducts from './FeaturedProducts';
 const HomePage: React.FC = () => {
   return (
     <>
-    <title>ORÉA Fine Jewellery — Lab-Grown Diamonds, Grown Not Mined</title>
-    <meta name="description" content="Discover ORÉA's collection of exceptional lab-grown diamond jewellery in solid gold and platinum. Sustainably grown, certified, and made to order." />
+    <title>ORÉA | Lab Grown Diamond Engagement Rings & Fine Jewellery</title>
+    <meta name="description" content="Shop ORÉA's lab grown diamond engagement rings and fine jewellery in solid gold and platinum. Ethically grown, certified, made to order." />
     <div className="bg-[#F9F6F1]">
       <main>
         <Hero 
