@@ -70,7 +70,7 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({
       receiverName: formData.receiverName,
       receiverEmail: formData.receiverEmail,
       productName: product.name,
-      productUrl: `https://orea.co.nz/products/${product.id}`,
+      productUrl: `https://orea.co.nz/product/${product.id}`,
       productImage: product.images[0] || undefined,
       selectedMetal,
       selectedCarat,
