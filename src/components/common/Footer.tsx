@@ -12,14 +12,6 @@ const Footer: React.FC = () => {
 
   const handleNewsletter = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (result.ok) {
-      setNewsletterState('success');
-      setEmail('');
-    } else {
-      setErrorMsg(result.message);
-      setNewsletterState('error');
-    }
-  };
 
     try {
       const data = await shopifyFetch<{
@@ -49,15 +41,6 @@ const Footer: React.FC = () => {
       }
     } catch {
       setErrorMsg('Something went wrong. Please try again.');
-      setNewsletterState('error');
-    }
-  };
-    
-    if (result.ok) {
-      setNewsletterState('success');
-      setEmail('');
-    } else {
-      setErrorMsg(result.message);
       setNewsletterState('error');
     }
   };
