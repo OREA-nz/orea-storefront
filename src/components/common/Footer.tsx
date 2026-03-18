@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Facebook } from 'lucide-react';
-import { sendEmail } from '../../lib/email';
+import { shopifyFetch, SHOPIFY_CONFIG } from '../../lib/shopify'; 
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -19,12 +19,39 @@ const Footer: React.FC = () => {
     }
     setNewsletterState('loading');
     setErrorMsg('');
-    const result = await sendEmail({
-      subject: 'ORÉA Newsletter Sign-Up',
-      from_name: 'Newsletter Subscriber',
-      from_email: email.trim(),
-      message: `New newsletter subscriber: ${email.trim()}`,
-    });
+
+    try {
+      const data = await shopifyFetch<{
+        customerCreate: {
+          customer: { id: string } | null;
+          customerUserErrors: { code: string; message: string }[];
+        };
+      }>(
+        `mutation customerCreate($input: CustomerCreateInput!) {
+          customerCreate(input: $input) {
+            customer { id }
+            customerUserErrors { code message }
+          }
+        }`,
+        { input: { email: email.trim(), acceptsMarketing: true } }
+      );
+
+      const errors = data.customerCreate.customerUserErrors;
+
+      // CUSTOMER_TAKEN means they're already subscribed — treat as success
+      if (errors.length > 0 && errors[0].code !== 'CUSTOMER_TAKEN') {
+        setErrorMsg(errors[0].message);
+        setNewsletterState('error');
+      } else {
+        setNewsletterState('success');
+        setEmail('');
+      }
+    } catch {
+      setErrorMsg('Something went wrong. Please try again.');
+      setNewsletterState('error');
+    }
+  };
+    
     if (result.ok) {
       setNewsletterState('success');
       setEmail('');
