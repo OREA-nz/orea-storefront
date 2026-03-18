@@ -12,12 +12,14 @@ const AuthPage: React.FC = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const firstInputRef = useRef<HTMLInputElement>(null);
 
-  // Focus the first visible input whenever the form mode changes
+  // Focus the first visible input and clear field errors whenever the form mode changes
   useEffect(() => {
     const timer = setTimeout(() => firstInputRef.current?.focus(), 50);
+    setFieldErrors({});
     return () => clearTimeout(timer);
   }, [mode]);
 
@@ -29,10 +31,33 @@ const AuthPage: React.FC = () => {
     return <Navigate to="/profile" replace />;
   }
 
+  const clearFieldError = (field: string) =>
+    setFieldErrors(prev => ({ ...prev, [field]: '' }));
+
+  const validateFields = (): boolean => {
+    const errors: Record<string, string> = {};
+    if (mode === 'signup') {
+      if (!firstName.trim()) errors.firstName = 'Required';
+      if (!lastName.trim())  errors.lastName  = 'Required';
+    }
+    if (!email.trim()) {
+      errors.email = 'Required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errors.email = 'Enter a valid email address';
+    }
+    if (mode !== 'recover') {
+      if (!password)            errors.password = 'Required';
+      else if (password.length < 6) errors.password = 'Minimum 6 characters';
+    }
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setSuccess('');
+    if (!validateFields()) return;
     setLoading(true);
 
     try {
@@ -70,7 +95,8 @@ const AuthPage: React.FC = () => {
     }
   };
 
-  const inputClass = 'w-full bg-transparent border-b border-orea-dark/25 py-4 text-body-sm font-light text-orea-dark placeholder:text-orea-earth outline-none focus:border-orea-dark transition-colors tracking-wide';
+  const inputClass      = 'w-full bg-transparent border-b border-orea-dark/25 py-4 text-body-sm font-light text-orea-dark placeholder:text-orea-earth outline-none focus:border-orea-dark transition-colors tracking-wide';
+  const inputErrorClass = 'w-full bg-transparent border-b border-orea-error py-4 text-body-sm font-light text-orea-dark placeholder:text-orea-earth outline-none focus:border-orea-error transition-colors tracking-wide';
 
   return (
     <section className="min-h-[80vh] bg-orea-cream flex items-center justify-center px-6 pt-20 pb-[160px]">
@@ -88,26 +114,37 @@ const AuthPage: React.FC = () => {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
           {mode === 'signup' && (
             <div className="flex gap-4">
-              <input ref={firstInputRef} type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} className={inputClass} required />
-              <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} className={inputClass} required />
+              <div className="flex-1 flex flex-col gap-1">
+                <input ref={firstInputRef} type="text" placeholder="First Name" value={firstName} onChange={(e) => { setFirstName(e.target.value); clearFieldError('firstName'); }} className={fieldErrors.firstName ? inputErrorClass : inputClass} />
+                {fieldErrors.firstName && <p className="text-micro text-orea-error tracking-wide">{fieldErrors.firstName}</p>}
+              </div>
+              <div className="flex-1 flex flex-col gap-1">
+                <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => { setLastName(e.target.value); clearFieldError('lastName'); }} className={fieldErrors.lastName ? inputErrorClass : inputClass} />
+                {fieldErrors.lastName && <p className="text-micro text-orea-error tracking-wide">{fieldErrors.lastName}</p>}
+              </div>
             </div>
           )}
 
-          <input
-            ref={mode !== 'signup' ? firstInputRef : undefined}
-            type="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={inputClass}
-            required
-          />
+          <div className="flex flex-col gap-1">
+            <input
+              ref={mode !== 'signup' ? firstInputRef : undefined}
+              type="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => { setEmail(e.target.value); clearFieldError('email'); }}
+              className={fieldErrors.email ? inputErrorClass : inputClass}
+            />
+            {fieldErrors.email && <p className="text-micro text-orea-error tracking-wide">{fieldErrors.email}</p>}
+          </div>
 
           {mode !== 'recover' && (
-            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className={inputClass} required minLength={6} />
+            <div className="flex flex-col gap-1">
+              <input type="password" placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value); clearFieldError('password'); }} className={fieldErrors.password ? inputErrorClass : inputClass} minLength={6} />
+              {fieldErrors.password && <p className="text-micro text-orea-error tracking-wide">{fieldErrors.password}</p>}
+            </div>
           )}
 
           {error && (

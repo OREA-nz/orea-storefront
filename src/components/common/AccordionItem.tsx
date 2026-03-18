@@ -28,12 +28,14 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ question, answer, isOpen,
         </div>
       </button>
       <div
-        className={`overflow-hidden transition-all duration-500 ease-in-out ${
-          isOpen ? 'max-h-[500px] pb-10 opacity-100' : 'max-h-0 opacity-0'
+        className={`grid transition-all duration-500 ease-in-out ${
+          isOpen ? 'grid-rows-[1fr] pb-10 opacity-100' : 'grid-rows-[0fr] opacity-0'
         }`}
       >
-        <div className="text-body leading-relaxed text-orea-taupe font-light whitespace-pre-wrap">
-          {answer}
+        <div className="overflow-hidden">
+          <div className="text-body leading-relaxed text-orea-taupe font-light whitespace-pre-wrap">
+            {answer}
+          </div>
         </div>
       </div>
     </div>

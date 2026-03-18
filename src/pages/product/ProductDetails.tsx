@@ -147,7 +147,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                 <button
                   key={metal}
                   onClick={() => setSelectedMetal(metal)}
-                  className="relative flex items-center justify-center transition-all duration-300 group focus:outline-none"
+                  className="relative flex items-center justify-center transition-all duration-300 group min-w-[44px] min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orea-gold-a rounded-full"
                 >
                   <div className={`absolute inset-0 border rounded-full transition-all duration-300 ${isActive ? 'scale-125 border-orea-dark' : 'scale-100 border-transparent group-hover:border-orea-sand'}`} style={{ width: '40px', height: '40px', margin: 'auto' }} />
                   <div className={`relative w-10 h-10 rounded-full flex items-center justify-center text-micro font-bold tracking-tighter transition-all duration-300 border border-orea-sand shadow-sm ${isActive ? 'scale-90 text-orea-dark' : 'text-orea-taupe hover:scale-105'} ${info ? info.cssClass : 'bg-orea-linen'}`}>

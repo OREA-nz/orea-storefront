@@ -2,6 +2,24 @@
 import React, { useState } from 'react';
 import { DiamondModality } from './types';
 
+// Pre-computed once at module load — Math.random() never runs during render
+function generateDots(count: number) {
+  return Array.from({ length: count }, () => ({
+    w:    1.2 + Math.random(),
+    h:    1.2 + Math.random(),
+    top:  30 + Math.random() * 40,
+    left: 30 + Math.random() * 40,
+  }));
+}
+
+const CLARITY_GRADES = [
+  { grade: 'FL - IF', line1: 'FLAWLESS',  line2: 'IF',       dots: generateDots(0)  },
+  { grade: 'VVS',     line1: 'VERY VERY', line2: 'SLIGHTLY', dots: generateDots(2)  },
+  { grade: 'VS',      line1: 'VERY',      line2: 'SLIGHTLY', dots: generateDots(8)  },
+  { grade: 'SI',      line1: 'SLIGHTLY',  line2: 'INCLUDED', dots: generateDots(20) },
+  { grade: 'I',       line1: 'INCLUDED',  line2: '',         dots: generateDots(50) },
+];
+
 const BODY_TEXT_CLASS = "text-orea-taupe font-light text-body leading-snug";
 
 export const MasteryOf4Cs: React.FC = () => {
@@ -252,13 +270,7 @@ const ClarityChapter = () => (
 
       <div className="w-full max-w-content flex flex-col gap-8">
         <div className="grid grid-cols-3 sm:grid-cols-5 border border-orea-linen bg-orea-cream">
-          {[
-            { grade: 'FL - IF', line1: 'FLAWLESS', line2: 'IF', dots: 0 },
-            { grade: 'VVS', line1: 'VERY VERY', line2: 'SLIGHTLY', dots: 2 },
-            { grade: 'VS', line1: 'VERY', line2: 'SLIGHTLY', dots: 8 },
-            { grade: 'SI', line1: 'SLIGHTLY', line2: 'INCLUDED', dots: 20 },
-            { grade: 'I', line1: 'INCLUDED', line2: '', dots: 50 }
-          ].map((g, i) => (
+          {CLARITY_GRADES.map((g, i) => (
             <div key={i} className="flex flex-col border-r last:border-r-0 border-orea-linen group">
               <div className="relative aspect-square flex items-center justify-center p-2 sm:p-6 bg-orea-cream border-b border-orea-cream overflow-hidden">
                 <svg viewBox="0 0 100 100" className="w-full h-full fill-none stroke-[0.8] transition-all duration-700 group-hover:scale-105" stroke="var(--orea-dark)">
@@ -271,18 +283,18 @@ const ClarityChapter = () => (
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <div className="relative w-16 h-16">
-                    {Array.from({ length: g.dots }).map((_, idx) => (
-                      <div 
-                        key={idx} 
-                        className="absolute bg-orea-dark rounded-full" 
-                        style={{ 
-                          width: `${1.2 + Math.random() * 1}px`, 
-                          height: `${1.2 + Math.random() * 1}px`, 
-                          top: `${30 + (Math.random() * 40)}%`, 
-                          left: `${30 + (Math.random() * 40)}%`, 
-                          opacity: 0.6 
+                    {g.dots.map((dot, idx) => (
+                      <div
+                        key={idx}
+                        className="absolute bg-orea-dark rounded-full"
+                        style={{
+                          width:   `${dot.w}px`,
+                          height:  `${dot.h}px`,
+                          top:     `${dot.top}%`,
+                          left:    `${dot.left}%`,
+                          opacity: 0.6,
                         }}
-                      ></div>
+                      />
                     ))}
                   </div>
                 </div>
