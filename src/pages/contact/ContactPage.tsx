@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import ContactHero from './ContactHero';
 import ContactCards from './ContactCards';
 import ContactForm from './ContactForm';
@@ -15,6 +16,10 @@ const ContactPage: React.FC = () => {
 
   return (
     <main className="min-h-screen">
+      <Helmet>
+        <title>Contact Us | ORÉA — Lab Grown Diamond Jewellery</title>
+        <meta name="description" content="Whether you're beginning something bespoke or have a simple question, we're here to help." />
+      </Helmet>
       <ContactHero />
       <ContactCards onSelectType={setSelectedType} />
       <SignatureMotif />

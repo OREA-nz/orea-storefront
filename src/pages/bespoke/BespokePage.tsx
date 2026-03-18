@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Users, PencilRuler, Diamond, Package } from 'lucide-react';
 
@@ -58,6 +59,10 @@ const BespokePage: React.FC = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Bespoke | ORÉA — Lab Grown Diamond Jewellery</title>
+        <meta name="description" content="Create your own custom piece brought to life from your vision, handcrafted with certified lab-grown diamonds." />
+      </Helmet>
       {/* 1. HERO SECTION */}
       <section className="relative px-6 md:px-12 py-section md:py-section-xl text-center overflow-hidden border-b border-orea-champagne/30">
         <div className="relative z-10 max-w-wide mx-auto">

@@ -1,5 +1,6 @@
 
 import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Category } from './types';
 import { PRODUCTS } from './constants';
 import ProductCard from './ProductCard';
@@ -77,10 +78,24 @@ const CollectionPage: React.FC = () => {
   // Live images from Shopify — one fetch shared across the whole collection grid
   const { imageMap } = useShopifyImages();
 
+  const pageTitle = currentCategory === 'Rings'
+    ? 'Rings | ORÉA — Lab Grown Diamond Jewellery'
+    : currentCategory === 'All'
+    ? 'Fine Jewellery | ORÉA — Lab Grown Diamond Jewellery'
+    : `${currentCategory} | ORÉA — Lab Grown Diamond Jewellery`;
+
+  const pageDescription = currentCategory === 'Rings'
+    ? 'Explore lab-grown diamond rings crafted in 14k, 18k gold or platinum — ethically grown, certified, and made to order.'
+    : currentCategory === 'All'
+    ? 'Discover the full collection of lab-grown diamond fine jewellery crafted in 14k and 18k solid gold.'
+    : `Browse our ${currentCategory.toLowerCase()} collection at ORÉA — lab-grown diamond fine jewellery in solid gold and platinum.`;
+
   return (
     <>
-    <title>{currentCategory === 'All' ? 'All Pieces' : currentCategory} | ORÉA Fine Jewellery</title>
-    <meta name="description" content={`Browse our ${currentCategory === 'All' ? 'full collection of lab-grown diamond jewellery' : `${currentCategory.toLowerCase()} collection`} at ORÉA Fine Jewellery — certified lab-grown diamonds in solid gold and platinum.`} />
+    <Helmet>
+      <title>{pageTitle}</title>
+      <meta name="description" content={pageDescription} />
+    </Helmet>
     <div className="bg-orea-cream">
       <CollectionHeader
         currentCategory={currentCategory}
