@@ -12,13 +12,14 @@ const Footer: React.FC = () => {
 
   const handleNewsletter = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!EMAIL_RE.test(email.trim())) {
-      setErrorMsg('Please enter a valid email address.');
+    if (result.ok) {
+      setNewsletterState('success');
+      setEmail('');
+    } else {
+      setErrorMsg(result.message);
       setNewsletterState('error');
-      return;
     }
-    setNewsletterState('loading');
-    setErrorMsg('');
+  };
 
     try {
       const data = await shopifyFetch<{
