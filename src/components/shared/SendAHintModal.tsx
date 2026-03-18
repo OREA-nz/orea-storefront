@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
-import { Product } from './types';
+import { Product } from '../../pages/product/types';
 import { sendHintEmail } from '../../lib/email';
 import { lockScroll, unlockScroll } from '../../lib/scrollLock';
 
