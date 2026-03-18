@@ -312,7 +312,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
         </div>
       </div>
 
-      <SendAHintModal isOpen={isHintModalOpen} onClose={() => setIsHintModalOpen(false)} product={product} />
+      <SendAHintModal
+       isOpen={isHintModalOpen}
+       onClose={() => setIsHintModalOpen(false)}
+       product={product}
+       selectedMetal={selectedMetal}
+       selectedCarat={selectedCarat}
+       selectedSize={selectedSize}
+       variantId={currentVariant?.id}
+       />
       <GiftReminderModal isOpen={isReminderModalOpen} onClose={() => setIsReminderModalOpen(false)} product={product} />
       {isRing && <SizeGuideModal isOpen={isSizeGuideOpen} onClose={() => setIsSizeGuideOpen(false)} />}
 
