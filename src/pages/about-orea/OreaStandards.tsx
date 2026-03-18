@@ -34,7 +34,7 @@ export const OreaStandards: React.FC = () => {
           </div>
           
           <div className="aspect-square overflow-hidden">
-            <img src="/images/about-metals.webp" alt="Solid Precious Metals" className="w-full h-full object-cover object-center" />
+            <img src="/images/about-metals.webp" alt="Solid Precious Metals" width={600} height={600} loading="lazy" className="w-full h-full object-cover object-center" />
           </div>
         </div>
 
@@ -42,7 +42,7 @@ export const OreaStandards: React.FC = () => {
         <div className="flex flex-col gap-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 items-center">
             <div className="order-2 md:order-1 aspect-square overflow-hidden">
-              <img src="/images/about-diamonds.webp" alt="Certified Lab-Grown Diamonds" className="w-full h-full object-cover object-center" />
+              <img src="/images/about-diamonds.webp" alt="Certified Lab-Grown Diamonds" width={600} height={600} loading="lazy" className="w-full h-full object-cover object-center" />
             </div>
             
             <div className="order-1 md:order-2 flex flex-col gap-8">

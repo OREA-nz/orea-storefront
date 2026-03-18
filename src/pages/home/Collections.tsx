@@ -43,9 +43,12 @@ const Collections: React.FC = () => {
                 to={item.link} 
                 className="relative block w-full aspect-[3/4] md:aspect-[4/5] lg:aspect-[3/4] overflow-hidden bg-orea-cream shadow-sm"
               >
-                <img 
-                  src={item.image} 
+                <img
+                  src={item.image}
                   alt={item.title}
+                  width={800}
+                  height={1067}
+                  loading="lazy"
                   className="w-full h-full object-cover object-center grayscale-[5%] transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-orea-dark/0 group-hover:bg-orea-dark/[0.02] transition-colors duration-1000"></div>

@@ -62,6 +62,9 @@ const FeaturedProducts: React.FC = () => {
                 <img
                   src={imageSrc}
                   alt={product.name}
+                  width={600}
+                  height={600}
+                  loading="lazy"
                   className="w-full h-full object-cover object-center transition-transform duration-1000 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-orea-dark/0 group-hover:bg-orea-dark/[0.03] transition-colors duration-1000"></div>

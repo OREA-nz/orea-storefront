@@ -76,7 +76,7 @@ const BespokePage: React.FC = () => {
       <section className="flex flex-col lg:flex-row min-h-[95vh]">
         {/* LEFT COLUMN: Partial Bespoke */}
         <div className="relative flex-1 group overflow-hidden min-h-[650px] aspect-[3/4] lg:aspect-auto border-r border-orea-cream/20 bg-orea-linen">
-          <img src="/images/bespoke-partial.webp" alt="Partial Bespoke" className="absolute inset-0 w-full h-full object-cover object-center" />
+          <img src="/images/bespoke-partial.webp" alt="Partial Bespoke" width={800} height={1067} loading="lazy" className="absolute inset-0 w-full h-full object-cover object-center" />
           <div className="absolute inset-0 bg-orea-dark/20 transition-colors duration-700 group-hover:bg-orea-dark/30" />
 
           <div className="relative z-10 h-full p-10 md:p-16 lg:p-28 flex flex-col justify-center text-orea-cream">
@@ -99,7 +99,7 @@ const BespokePage: React.FC = () => {
 
         {/* RIGHT COLUMN: Fully Bespoke */}
         <div className="relative flex-1 group overflow-hidden min-h-[650px] aspect-[3/4] lg:aspect-auto bg-orea-champagne">
-          <img src="/images/bespoke-full.webp" alt="Fully Bespoke" className="absolute inset-0 w-full h-full object-cover object-center" />
+          <img src="/images/bespoke-full.webp" alt="Fully Bespoke" width={800} height={1067} loading="lazy" className="absolute inset-0 w-full h-full object-cover object-center" />
           <div className="absolute inset-0 bg-orea-dark/30 transition-colors duration-700 group-hover:bg-orea-dark/40" />
 
           <div className="relative z-10 h-full p-10 md:p-16 lg:p-28 flex flex-col justify-center text-orea-cream">

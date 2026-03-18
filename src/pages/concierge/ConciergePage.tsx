@@ -27,6 +27,9 @@ const ConciergePage: React.FC = () => {
           <img
             src={CONCIERGE_IMAGE}
             alt="ORÉA Concierge Service"
+            width={600}
+            height={800}
+            loading="lazy"
             className="w-full h-full object-cover object-center"
           />
         </div>

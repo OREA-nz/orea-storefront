@@ -33,8 +33,9 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images }) => {
         <img
           src={images[activeIndex] || '/placeholder.svg'}
           alt={`Product view ${activeIndex + 1}`}
-          width={1445}
-          height={1445}
+          width={800}
+          height={800}
+          fetchPriority="high"
           loading="eager"
           className="w-full h-full object-cover object-center transition-opacity duration-300"
         />
@@ -80,8 +81,8 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images }) => {
               <img
                 src={img || '/placeholder.svg'}
                 alt={`Thumbnail ${idx + 1}`}
-                width={1445}
-                height={1445}
+                width={80}
+                height={80}
                 loading={idx === 0 ? 'eager' : 'lazy'}
                 className="w-full h-full object-cover"
               />

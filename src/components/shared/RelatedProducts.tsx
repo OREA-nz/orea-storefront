@@ -33,6 +33,9 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ currentId }) => {
                   <img
                     src={imgSrc}
                     alt={item.name}
+                    width={400}
+                    height={400}
+                    loading="lazy"
                     className="w-full h-full object-cover object-center transition-transform duration-1000 group-hover:scale-110"
                   />
                 ) : (

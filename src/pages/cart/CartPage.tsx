@@ -51,7 +51,7 @@ const CartPage: React.FC = () => {
                   {productLink ? (
                     <Link to={productLink} className="w-28 h-36 bg-orea-linen flex-shrink-0 overflow-hidden block hover:opacity-80 transition-opacity">
                       {item.image ? (
-                        <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                        <img src={item.image} alt={item.name} width={112} height={144} loading="lazy" className="w-full h-full object-cover" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
                           <ShoppingBag size={24} strokeWidth={0.7} className="text-orea-champagne" />
@@ -61,7 +61,7 @@ const CartPage: React.FC = () => {
                   ) : (
                     <div className="w-28 h-36 bg-orea-linen flex-shrink-0 overflow-hidden">
                       {item.image ? (
-                        <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                        <img src={item.image} alt={item.name} width={112} height={144} loading="lazy" className="w-full h-full object-cover" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
                           <ShoppingBag size={24} strokeWidth={0.7} className="text-orea-champagne" />

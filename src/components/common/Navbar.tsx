@@ -188,9 +188,12 @@ const Navbar: React.FC = () => {
           <div className="w-full max-w-sm ml-auto">
             <div className="flex flex-col gap-6">
               <Link to="/collection" onClick={() => setActiveDropdown(null)} className="relative group overflow-hidden bg-orea-linen aspect-square block">
-                <img 
+                <img
                   src="/images/nav-signature.webp"
-                  alt="Featured Signature Product" 
+                  alt="Featured Signature Product"
+                  width={240}
+                  height={240}
+                  loading="eager"
                   className="w-full h-full object-cover object-center grayscale-[15%] group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-orea-dark/5 group-hover:bg-orea-dark/10 transition-colors duration-700"></div>
@@ -208,9 +211,12 @@ const Navbar: React.FC = () => {
           <div className="w-full max-w-sm ml-16">
             <div className="flex flex-col gap-6">
               <Link to="/bespoke" onClick={() => setActiveDropdown(null)} className="relative group overflow-hidden bg-orea-linen aspect-square block">
-                <img 
+                <img
                   src="/images/nav-bespoke.webp"
-                  alt="The Bespoke Journey" 
+                  alt="The Bespoke Journey"
+                  width={240}
+                  height={240}
+                  loading="eager"
                   className="w-full h-full object-cover object-center grayscale-[20%] group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-orea-dark/5 group-hover:bg-orea-dark/10 transition-colors duration-700"></div>

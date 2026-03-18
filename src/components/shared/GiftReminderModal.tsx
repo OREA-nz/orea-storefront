@@ -213,7 +213,7 @@ const GiftReminderModal: React.FC<GiftReminderModalProps> = ({ isOpen, onClose, 
                 <p className="text-micro font-bold uppercase tracking-wider text-orea-dark">{product.name}</p>
                 <div className="relative group">
                   <div className="bg-orea-cream p-2">
-                    <img src={product.images[0] || "/placeholder.svg"} alt="Product thumbnail" width={1445} height={1445} className="w-24 h-32 object-cover mx-auto grayscale opacity-40 group-hover:opacity-60 transition-opacity" />
+                    <img src={product.images[0] || "/placeholder.svg"} alt="Product thumbnail" width={96} height={128} loading="lazy" className="w-24 h-32 object-cover mx-auto grayscale opacity-40 group-hover:opacity-60 transition-opacity" />
                   </div>
                 </div>
               </div>

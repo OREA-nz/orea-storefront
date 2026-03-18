@@ -15,7 +15,7 @@ export const Hero: React.FC = () => {
       
       <div className="w-full max-w-container mx-auto px-4 sm:px-6 lg:px-8 mt-section-sm">
         <div className="aspect-video overflow-hidden">
-          <img src="/images/about-hero.webp" alt="ORÉA — Modern Fine Jewellery" className="w-full h-full object-cover object-center" />
+          <img src="/images/about-hero.webp" alt="ORÉA — Modern Fine Jewellery" width={1200} height={675} loading="lazy" className="w-full h-full object-cover object-center" />
         </div>
       </div>
     </section>

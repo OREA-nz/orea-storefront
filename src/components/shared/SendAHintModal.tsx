@@ -222,7 +222,7 @@ const SendAHintModal: React.FC<SendAHintModalProps> = ({
 
                   <div className="relative group mx-auto w-fit py-2">
                     <div className="bg-orea-cream p-2 shadow-sm">
-                      <img src={product.images[0] || "/placeholder.svg"} alt="Hint Product" width={1445} height={1445} className="w-48 h-60 object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-1000" />
+                      <img src={product.images[0] || "/placeholder.svg"} alt="Hint Product" width={192} height={240} loading="lazy" className="w-48 h-60 object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-1000" />
                     </div>
                   </div>
 

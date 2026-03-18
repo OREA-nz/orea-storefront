@@ -140,7 +140,7 @@ const ProfilePage: React.FC = () => {
                     {order.lineItems.edges.map((edge, idx) => (
                       <div key={idx} className="flex items-center gap-3 bg-orea-linen/30 p-3">
                         {edge.node.variant?.image?.url && (
-                          <img src={edge.node.variant.image.url} alt={edge.node.title} className="w-12 h-12 object-cover" />
+                          <img src={edge.node.variant.image.url} alt={edge.node.title} width={48} height={48} loading="lazy" className="w-12 h-12 object-cover" />
                         )}
                         <div className="flex flex-col gap-0.5">
                           <span className="text-micro font-medium text-orea-dark truncate max-w-[200px]">{edge.node.title}</span>
