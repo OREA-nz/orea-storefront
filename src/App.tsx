@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, Link } from 'react-router-dom';
 
 import { AuthProvider } from './context/AuthContext';
@@ -6,6 +6,25 @@ import { CartProvider } from './context/CartContext';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import ErrorBoundary from './components/common/ErrorBoundary';
+
+// Route-level code splitting — each page loads only when first visited
+const HomePage          = lazy(() => import('./pages/home/HomePage'));
+const AboutOreaPage     = lazy(() => import('./pages/about-orea/AboutOreaPage'));
+const AboutDiamondsPage = lazy(() => import('./pages/about-diamonds/AboutDiamondsPage'));
+const BespokePage       = lazy(() => import('./pages/bespoke/BespokePage'));
+const CollectionPage    = lazy(() => import('./pages/collection/CollectionPage'));
+const ConciergePage     = lazy(() => import('./pages/concierge/ConciergePage'));
+const ContactPage       = lazy(() => import('./pages/contact/ContactPage'));
+const FAQPage           = lazy(() => import('./pages/faq/FAQPage'));
+const CareGuidePage     = lazy(() => import('./pages/care-guide/CareGuidePage'));
+const ProductPage       = lazy(() => import('./pages/product/ProductPage'));
+const ReturnsPage       = lazy(() => import('./pages/returns/ReturnsPage'));
+const ShippingPage      = lazy(() => import('./pages/shipping/ShippingPage'));
+const TermsPage         = lazy(() => import('./pages/terms/TermsPage'));
+const AuthPage          = lazy(() => import('./pages/auth/AuthPage'));
+const ProfilePage       = lazy(() => import('./pages/auth/ProfilePage'));
+const CartPage          = lazy(() => import('./pages/cart/CartPage'));
+const CheckoutPage      = lazy(() => import('./pages/cart/CheckoutPage'));
 
 /** Scrolls to the top of the page on every route or query-string change */
 function ScrollToTop() {
@@ -38,25 +57,6 @@ const NotFoundPage: React.FC = () => (
   </div>
 );
 
-// Main Pages
-import HomePage from './pages/home/HomePage';
-import AboutOreaPage from './pages/about-orea/AboutOreaPage';
-import AboutDiamondsPage from './pages/about-diamonds/AboutDiamondsPage';
-import BespokePage from './pages/bespoke/BespokePage';
-import CollectionPage from './pages/collection/CollectionPage';
-import ConciergePage from './pages/concierge/ConciergePage';
-import ContactPage from './pages/contact/ContactPage';
-import FAQPage from './pages/faq/FAQPage';
-import CareGuidePage from './pages/care-guide/CareGuidePage';
-import ProductPage from './pages/product/ProductPage';
-import ReturnsPage from './pages/returns/ReturnsPage';
-import ShippingPage from './pages/shipping/ShippingPage';
-import TermsPage from './pages/terms/TermsPage';
-import AuthPage from './pages/auth/AuthPage';
-import ProfilePage from './pages/auth/ProfilePage';
-import CartPage from './pages/cart/CartPage';
-import CheckoutPage from './pages/cart/CheckoutPage';
-
 
 const App: React.FC = () => {
   return (
@@ -70,6 +70,7 @@ const App: React.FC = () => {
         {/* Global spacer: 120px breathing room below the fixed navbar */}
         <main className="pt-[120px]">
         <ErrorBoundary>
+        <Suspense fallback={<div className="min-h-[60vh] bg-orea-cream" />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutOreaPage />} />
@@ -91,6 +92,7 @@ const App: React.FC = () => {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        </Suspense>
         </ErrorBoundary>
         </main>
 
