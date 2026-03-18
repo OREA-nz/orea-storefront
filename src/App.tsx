@@ -5,6 +5,7 @@ import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
+import ErrorBoundary from './components/common/ErrorBoundary';
 
 /** Scrolls to the top of the page on every route or query-string change */
 function ScrollToTop() {
@@ -68,6 +69,7 @@ const App: React.FC = () => {
         
         {/* Global spacer: 120px breathing room below the fixed navbar */}
         <main className="pt-[120px]">
+        <ErrorBoundary>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutOreaPage />} />
@@ -89,6 +91,7 @@ const App: React.FC = () => {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        </ErrorBoundary>
         </main>
 
         <Footer />

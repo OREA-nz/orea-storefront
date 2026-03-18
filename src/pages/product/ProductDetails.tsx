@@ -32,32 +32,12 @@ interface ProductDetailsProps {
   setSelectedSize?: (size: string) => void;
 }
 
-const metalMetadata: Record<string, { label: string; text: string; gradient: string }> = {
-  'Platinum': {
-    label: 'Platinum(950)',
-    text: 'PL',
-    gradient: 'linear-gradient(135deg, #E8DFD3 0%, #D4C4A8 50%, #F9F6F1 100%)'
-  },
-  '18k Yellow Gold': {
-    label: '18k Yellow Gold',
-    text: '18K',
-    gradient: 'linear-gradient(135deg, #EFD695 0%, #C5B8A0 50%, #F7E8C1 100%)'
-  },
-  '18k White Gold': {
-    label: '18k White Gold',
-    text: '18K',
-    gradient: 'linear-gradient(135deg, #F8F8F8 0%, #E8DFD3 50%, #F9F6F1 100%)'
-  },
-  '14k Yellow Gold': {
-    label: '14k Yellow Gold',
-    text: '14K',
-    gradient: 'linear-gradient(135deg, #EFD695 0%, #C5B8A0 50%, #F7E8C1 100%)'
-  },
-  '14k White Gold': {
-    label: '14k White Gold',
-    text: '14K',
-    gradient: 'linear-gradient(135deg, #F8F8F8 0%, #E8DFD3 50%, #F9F6F1 100%)'
-  }
+const metalMetadata: Record<string, { label: string; text: string; cssClass: string }> = {
+  'Platinum':       { label: 'Platinum(950)',   text: 'PL',  cssClass: 'metal-platinum'    },
+  '18k Yellow Gold':{ label: '18k Yellow Gold', text: '18K', cssClass: 'metal-yellow-gold' },
+  '18k White Gold': { label: '18k White Gold',  text: '18K', cssClass: 'metal-white-gold'  },
+  '14k Yellow Gold':{ label: '14k Yellow Gold', text: '14K', cssClass: 'metal-yellow-gold' },
+  '14k White Gold': { label: '14k White Gold',  text: '14K', cssClass: 'metal-white-gold'  },
 };
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({
@@ -126,7 +106,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
     }
   };
 
-  const currentMetalInfo = metalMetadata[selectedMetal] || { label: selectedMetal, text: '', gradient: '#D9CFC1' };
+  const currentMetalInfo = metalMetadata[selectedMetal] || { label: selectedMetal, text: '', cssClass: 'bg-orea-oatmeal' };
   const labelStyle = "text-caption font-bold uppercase tracking-widest text-orea-dark";
 
   return (
@@ -170,7 +150,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
                   className="relative flex items-center justify-center transition-all duration-300 group focus:outline-none"
                 >
                   <div className={`absolute inset-0 border rounded-full transition-all duration-300 ${isActive ? 'scale-125 border-orea-dark' : 'scale-100 border-transparent group-hover:border-orea-sand'}`} style={{ width: '40px', height: '40px', margin: 'auto' }} />
-                  <div className={`relative w-10 h-10 rounded-full flex items-center justify-center text-micro font-bold tracking-tighter transition-all duration-300 border border-orea-sand shadow-sm ${isActive ? 'scale-90 text-orea-dark' : 'text-orea-taupe hover:scale-105'}`} style={{ background: info ? info.gradient : '#E8DFD3' }}>
+                  <div className={`relative w-10 h-10 rounded-full flex items-center justify-center text-micro font-bold tracking-tighter transition-all duration-300 border border-orea-sand shadow-sm ${isActive ? 'scale-90 text-orea-dark' : 'text-orea-taupe hover:scale-105'} ${info ? info.cssClass : 'bg-orea-linen'}`}>
                     {info ? info.text : metal.charAt(0)}
                   </div>
                 </button>

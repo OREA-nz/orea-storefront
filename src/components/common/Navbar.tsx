@@ -116,7 +116,7 @@ const Navbar: React.FC = () => {
           </div>
 
           <button
-            className={`relative group py-2 hover:text-orea-gold-a transition-colors duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orea-gold-a rounded-sm ${activeDropdown === 'concierge' ? 'text-orea-gold-a' : ''}`}
+            className={`relative group py-2 uppercase hover:text-orea-gold-a transition-colors duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orea-gold-a rounded-sm ${activeDropdown === 'concierge' ? 'text-orea-gold-a' : ''}`}
             onMouseEnter={() => setActiveDropdown('concierge')}
             onFocus={() => setActiveDropdown('concierge')}
             onClick={() => setActiveDropdown(prev => prev === 'concierge' ? null : 'concierge')}

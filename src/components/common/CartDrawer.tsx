@@ -28,7 +28,7 @@ const CartDrawer: React.FC = () => {
     <>
       {/* Backdrop */}
       <div
-        className={`fixed inset-0 z-[60] bg-orea-dark/30 backdrop-blur-[2px] transition-opacity duration-500 ${isDrawerOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
+        className={`fixed inset-0 z-[60] bg-orea-dark/40 transition-opacity duration-500 ${isDrawerOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
         onClick={closeDrawer}
       />
 

@@ -27,6 +27,12 @@
   }
 }
 
+@layer components {
+  .metal-platinum    { background: linear-gradient(135deg, #E8DFD3 0%, #D4C4A8 50%, #F9F6F1 100%); }
+  .metal-yellow-gold { background: linear-gradient(135deg, #EFD695 0%, #C5B8A0 50%, #F7E8C1 100%); }
+  .metal-white-gold  { background: linear-gradient(135deg, #F8F8F8 0%, #E8DFD3 50%, #F9F6F1 100%); }
+}
+
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { Product } from './types';
 
 interface ProductCardProps {
@@ -44,4 +44,4 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);

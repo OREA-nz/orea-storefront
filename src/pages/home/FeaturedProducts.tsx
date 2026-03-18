@@ -27,9 +27,19 @@ const featuredProducts = FEATURED_HANDLES.map((handle) => {
   };
 });
 
+const ProductSkeleton: React.FC = () => (
+  <div className="flex flex-col items-center animate-pulse">
+    <div className="w-full aspect-square bg-orea-linen mb-8 md:mb-10" />
+    <div className="w-full flex flex-col gap-3 items-center">
+      <div className="h-3 w-36 bg-orea-linen rounded-sm" />
+      <div className="h-2.5 w-24 bg-orea-linen/60 rounded-sm" />
+    </div>
+  </div>
+);
+
 const FeaturedProducts: React.FC = () => {
   // Live images from Shopify — shares the module-level cache with CollectionPage
-  const { imageMap } = useShopifyAllImages();
+  const { imageMap, loading } = useShopifyAllImages();
 
   return (
     <section className="pt-section-sm md:pt-section pb-section md:pb-section-lg bg-[#F9F6F1] px-4 sm:px-6 lg:px-8">
@@ -40,7 +50,9 @@ const FeaturedProducts: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 md:gap-x-12 lg:gap-x-16 gap-y-16 md:gap-y-24">
-          {featuredProducts.map((product) => {
+          {loading
+            ? Array.from({ length: 6 }).map((_, i) => <ProductSkeleton key={i} />)
+            : featuredProducts.map((product) => {
             const liveImages = product.shopifyHandle ? imageMap.get(product.shopifyHandle) : undefined;
             const imageSrc = liveImages?.primary;
             return (
@@ -68,7 +80,7 @@ const FeaturedProducts: React.FC = () => {
                   <h3 className="font-serif text-caption tracking-[0.4em] text-orea-dark font-semibold uppercase leading-relaxed min-h-[2.5rem] flex items-center justify-center px-4">
                     {product.name}
                   </h3>
-<p className="text-micro text-orea-taupe tracking-[0.2em] font-light">
+                  <p className="text-micro text-orea-taupe tracking-[0.2em] font-light">
                     From {product.price}
                   </p>
                 </div>
