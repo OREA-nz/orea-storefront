@@ -4,15 +4,68 @@
 
 @layer base {
   :root {
+    /* Full-color hex variables — used by SVG stroke/fill and direct var() references */
     --orea-cream:     #F9F6F1;
     --orea-dark:      #4A3F35;
     --orea-champagne: #D4C4A8;
     --orea-gold:      #C5B8A0;
     --orea-gold-a:    #8B7D65;
     --orea-taupe:     #7D6B5C;
+    --orea-sand:      #E2D8CB;
     --orea-linen:     #E8DFD3;
     --orea-earth:     #9B8877;
+    --orea-mocha:     #6B5B4E;
     --orea-oatmeal:   #D9CFC1;
+    --orea-success:   #4A5E3C;
+    --orea-error:     #7D3A2A;
+
+    /* RGB channel variables — used by Tailwind for opacity modifiers (bg-orea-cream/50) */
+    --orea-cream-rgb:      249 246 241;
+    --orea-dark-rgb:        74  63  53;
+    --orea-champagne-rgb:  212 196 168;
+    --orea-gold-rgb:       197 184 160;
+    --orea-gold-a-rgb:     139 125 101;
+    --orea-taupe-rgb:      125 107  92;
+    --orea-sand-rgb:       226 216 203;
+    --orea-linen-rgb:      232 223 211;
+    --orea-earth-rgb:      155 136 119;
+    --orea-mocha-rgb:      107  91  78;
+    --orea-oatmeal-rgb:    217 207 193;
+    --orea-success-rgb:     74  94  60;
+    --orea-error-rgb:      125  58  42;
+  }
+
+  /* Dark mode — warm near-black espresso palette */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --orea-cream:     #1A1614;
+      --orea-dark:      #EDE8E2;
+      --orea-champagne: #4A3F35;
+      --orea-gold:      #C5B8A0;
+      --orea-gold-a:    #C5B8A0;
+      --orea-taupe:     #BFB0A3;
+      --orea-sand:      #2D2520;
+      --orea-linen:     #242018;
+      --orea-earth:     #9B8877;
+      --orea-mocha:     #A09080;
+      --orea-oatmeal:   #352D27;
+      --orea-success:   #5E8A48;
+      --orea-error:     #C05040;
+
+      --orea-cream-rgb:       26  22  20;
+      --orea-dark-rgb:       237 232 226;
+      --orea-champagne-rgb:   74  63  53;
+      --orea-gold-rgb:       197 184 160;
+      --orea-gold-a-rgb:     197 184 160;
+      --orea-taupe-rgb:      191 176 163;
+      --orea-sand-rgb:        45  37  32;
+      --orea-linen-rgb:       36  32  24;
+      --orea-earth-rgb:      155 136 119;
+      --orea-mocha-rgb:      160 144 128;
+      --orea-oatmeal-rgb:     53  45  39;
+      --orea-success-rgb:     94 138  72;
+      --orea-error-rgb:      192  80  64;
+    }
   }
 
   html, body {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SHOPIFY_PRODUCTS } from '../../data/shopifyProducts';
-import { useShopifyAllImages } from '../../hooks/useShopifyImages';
+import { useShopifyImages } from '../../context/ShopifyImagesContext';
 
 const FEATURED_HANDLES = [
   'hera-trilogy-three-stone-ring',
@@ -39,10 +39,10 @@ const ProductSkeleton: React.FC = () => (
 
 const FeaturedProducts: React.FC = () => {
   // Live images from Shopify — shares the module-level cache with CollectionPage
-  const { imageMap, loading } = useShopifyAllImages();
+  const { imageMap, loading } = useShopifyImages();
 
   return (
-    <section className="pt-section-sm md:pt-section pb-section md:pb-section-lg bg-[#F9F6F1] px-4 sm:px-6 lg:px-8">
+    <section className="pt-section-sm md:pt-section pb-section md:pb-section-lg bg-orea-cream px-4 sm:px-6 lg:px-8">
       <div className="max-w-wide mx-auto">
         <div className="flex flex-col items-center mb-16 md:mb-24 text-center">
           <h2 className="font-serif text-h3 text-orea-dark font-light tracking-[0.15em] uppercase">ORÉA Classics</h2>

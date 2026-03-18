@@ -5,7 +5,7 @@ import { PRODUCTS } from './constants';
 import ProductCard from './ProductCard';
 import CollectionHeader from './CollectionHeader';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useShopifyAllImages } from '../../hooks/useShopifyImages';
+import { useShopifyImages } from '../../context/ShopifyImagesContext';
 
 type SortOption = 'Featured' | 'Best Selling' | 'Price, Low To High' | 'Price, High To Low';
 
@@ -75,7 +75,7 @@ const CollectionPage: React.FC = () => {
   };
 
   // Live images from Shopify — one fetch shared across the whole collection grid
-  const { imageMap } = useShopifyAllImages();
+  const { imageMap } = useShopifyImages();
 
   return (
     <>

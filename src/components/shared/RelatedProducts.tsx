@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { PRODUCTS } from '../../pages/collection/constants';
 import { getRecommendations } from '../../lib/recommendations';
-import { useShopifyAllImages } from '../../hooks/useShopifyImages';
+import { useShopifyImages } from '../../context/ShopifyImagesContext';
 
 interface RelatedProductsProps {
   currentId: string;
@@ -10,7 +10,7 @@ interface RelatedProductsProps {
 
 const RelatedProducts: React.FC<RelatedProductsProps> = ({ currentId }) => {
   const recommended = getRecommendations(currentId, PRODUCTS as any[], 4);
-  const { imageMap } = useShopifyAllImages();
+  const { imageMap } = useShopifyImages();
 
   return (
     <div className="flex flex-col gap-16 px-[15px]">

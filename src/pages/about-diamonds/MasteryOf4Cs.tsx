@@ -33,7 +33,7 @@ export const MasteryOf4Cs: React.FC = () => {
   ];
 
   return (
-    <section className="bg-[#F9F6F1] border-y border-orea-linen overflow-hidden">
+    <section className="bg-orea-cream border-y border-orea-linen overflow-hidden">
       <div className="pt-section-sm pb-6">
         <div className="max-w-wide mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center text-center">
@@ -57,7 +57,7 @@ export const MasteryOf4Cs: React.FC = () => {
 
       <div className="max-w-wide mx-auto px-0 sm:px-2 lg:px-4">
         {/* Tab bar — sits on cream, outside the white card */}
-        <div className="bg-[#F9F6F1] flex justify-center">
+        <div className="bg-orea-cream flex justify-center">
           {tabs.map((tab) => (
             <button
               key={tab.label}
@@ -76,7 +76,7 @@ export const MasteryOf4Cs: React.FC = () => {
         </div>
 
         {/* White content card — border-t-0 so tab bar bottom-border serves as the divider */}
-        <div className="bg-[#FFFFFF] shadow-sm overflow-hidden">
+        <div className="bg-orea-linen shadow-sm overflow-hidden">
           <div className="min-h-[540px] relative">
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{backgroundImage: 'radial-gradient(circle, var(--orea-dark) 0.5px, transparent 0.5px)', backgroundSize: '30px 30px'}}></div>
 

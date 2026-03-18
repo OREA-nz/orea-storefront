@@ -3,23 +3,26 @@ import tailwindcssAnimate from 'tailwindcss-animate';
 
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", "*.{js,ts,jsx,tsx,mdx}"],
+  darkMode: 'media',
   theme: {
     extend: {
       colors: {
+        // Colors use CSS variables so dark mode overrides in index.css apply automatically.
+        // Format: rgb(var(--X-rgb) / <alpha-value>) enables Tailwind opacity modifiers (bg-orea-cream/50).
         orea: {
-          cream:     '#F9F6F1',   // Cream White -- primary background
-          dark:      '#4A3F35',   // Espresso Brown -- primary text, headings
-          champagne: '#D4C4A8',   // Warm Beige -- accent borders, CTA outlines
-          gold:      '#C5B8A0',   // Muted Champagne -- decorative accents, ornamental
-          'gold-a':  '#8B7D65',   // Accessible gold for small text (4.5:1 vs cream)
-          taupe:     '#7D6B5C',   // Cocoa Taupe -- secondary text (large text only)
-          sand:      '#E2D8CB',   // Warm Sand -- subtle borders, form accents, secondary backgrounds
-          linen:     '#E8DFD3',   // Soft Sand -- borders, dividers, card backgrounds
-          earth:     '#9B8877',   // Mocha Brown -- tertiary text, hover states
-          mocha:     '#6B5B4E',   // Warm mocha -- table text, modal icons
-          oatmeal:   '#D9CFC1',   // Latte Beige -- secondary borders, input bg
-          success:   '#4A5E3C',   // Forest moss -- success feedback (brand-aligned)
-          error:     '#7D3A2A',   // Deep terracotta -- error feedback (brand-aligned)
+          cream:     'rgb(var(--orea-cream-rgb)     / <alpha-value>)',
+          dark:      'rgb(var(--orea-dark-rgb)      / <alpha-value>)',
+          champagne: 'rgb(var(--orea-champagne-rgb) / <alpha-value>)',
+          gold:      'rgb(var(--orea-gold-rgb)      / <alpha-value>)',
+          'gold-a':  'rgb(var(--orea-gold-a-rgb)    / <alpha-value>)',
+          taupe:     'rgb(var(--orea-taupe-rgb)     / <alpha-value>)',
+          sand:      'rgb(var(--orea-sand-rgb)      / <alpha-value>)',
+          linen:     'rgb(var(--orea-linen-rgb)     / <alpha-value>)',
+          earth:     'rgb(var(--orea-earth-rgb)     / <alpha-value>)',
+          mocha:     'rgb(var(--orea-mocha-rgb)     / <alpha-value>)',
+          oatmeal:   'rgb(var(--orea-oatmeal-rgb)   / <alpha-value>)',
+          success:   'rgb(var(--orea-success-rgb)   / <alpha-value>)',
+          error:     'rgb(var(--orea-error-rgb)     / <alpha-value>)',
         }
       },
       fontFamily: {

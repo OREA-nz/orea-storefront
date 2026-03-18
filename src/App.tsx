@@ -6,6 +6,7 @@ import { CartProvider } from './context/CartContext';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import ErrorBoundary from './components/common/ErrorBoundary';
+import { ShopifyImagesProvider } from './context/ShopifyImagesContext';
 
 // Route-level code splitting — each page loads only when first visited
 const HomePage          = lazy(() => import('./pages/home/HomePage'));
@@ -63,6 +64,7 @@ const App: React.FC = () => {
     <BrowserRouter>
     <AuthProvider>
     <CartProvider>
+    <ShopifyImagesProvider>
       <ScrollToTop />
       <div className="min-h-screen">{/*Each page has its own background and styling*/}
         <Navbar />
@@ -98,6 +100,7 @@ const App: React.FC = () => {
 
         <Footer />
       </div>
+    </ShopifyImagesProvider>
     </CartProvider>
     </AuthProvider>
     </BrowserRouter>
