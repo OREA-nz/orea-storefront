@@ -1,6 +1,6 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { getVariantId } from '../../data/shopifyProducts';
 
 import ProductGallery from '../../components/shared/ProductGallery';
@@ -137,6 +137,7 @@ const ProductPage: React.FC = () => {
     } as Product;
   }, [id, shopifyData, isRing, liveTitle, description, galleryImages]);
 
+  const [searchParams] = useSearchParams();
   const [selectedMetal, setSelectedMetal] = useState('');
   const [selectedShape, setSelectedShape] = useState('Emerald');
   const [selectedCarat, setSelectedCarat] = useState('');
@@ -155,13 +156,26 @@ const ProductPage: React.FC = () => {
 
   // Reset selections whenever the resolved product changes
   useEffect(() => {
-    if (product) {
+    if (!product) return;
+
+    const variantParam = searchParams.get('variant');
+    const matchedVariant = variantParam
+      ? product.variants?.find((v) => v.id === Number(variantParam))
+      : null;
+
+    if (matchedVariant) {
+      // Pre-select from variant param — option1 = metal, option2 = carat (normalised)
+      setSelectedMetal(matchedVariant.option1 || product.options.metal[0] || '');
+      setSelectedCarat(matchedVariant.option2 || product.options.carat[0] || '');
+      setSelectedShape('Emerald');
+      setSelectedSize(isRing ? 'L' : 'Standard');
+    } else {
       setSelectedMetal(product.options.metal[0] || '');
       setSelectedShape('Emerald');
       setSelectedCarat(product.options.carat[0] || '');
       setSelectedSize(isRing ? 'L' : 'Standard');
     }
-  }, [product?.id, product?.options.metal[0], product?.options.carat[0], isRing]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [product?.id, product?.options.metal[0], product?.options.carat[0], isRing]);
 
   if (!product) {
     return (
