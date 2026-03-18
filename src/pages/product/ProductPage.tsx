@@ -168,7 +168,7 @@ const ProductPage: React.FC = () => {
       setSelectedMetal(matchedVariant.option1 || product.options.metal[0] || '');
       setSelectedCarat(matchedVariant.option2 || product.options.carat[0] || '');
       setSelectedShape('Emerald');
-      setSelectedSize(isRing ? 'L' : 'Standard');
+      setSelectedSize(searchParams.get('size') || (isRing ? 'L' : 'Standard'));
     } else {
       setSelectedMetal(product.options.metal[0] || '');
       setSelectedShape('Emerald');
